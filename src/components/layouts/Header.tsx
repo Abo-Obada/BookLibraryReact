@@ -19,7 +19,7 @@ function Header(){
             </li>
             </div>
              <div className="">
-                <img src={logo} className="h-15"/>
+                <img src={logo} className={`h-15 ${localStorage.getItem("theme") == "dark" ? 'invert' : ''}`}/>
             </div>
         </div>
         </>

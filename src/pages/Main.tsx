@@ -1,5 +1,6 @@
 import {  PushpinOutlined, StarTwoTone } from "@ant-design/icons";
 import { Button, Carousel, Divider } from "antd";
+import { useRef } from "react";
 
 
 const carouselSwapper = [{
@@ -95,9 +96,19 @@ const recentBooks = [
   
 
 export default function Main(){
+ const scrollRef = useRef<HTMLDivElement>(null);
+ const rightClickHandle = () =>{
+  if(  scrollRef.current){
+      scrollRef.current.scrollLeft += 300;
+  }
+ }
 
+ const leftClickHandle = () =>{
+  if(  scrollRef.current){
+      scrollRef.current.scrollLeft -= 300;
+  }
+ }
  return (
- 
     <div className="grid grid-cols-1">
       <Carousel autoplay>
            {carouselSwapper.map(n=>(
@@ -123,9 +134,9 @@ export default function Main(){
             <h1 className="">أجمل الكتب في الوقت الراهن</h1>
          </Divider>
      
-     <div className="flex justify-center items-center">
-       <Button>يمين</Button>
-      <div   className="flex overflow-x-auto w-300 overflow-y-hidden justify-start gap-4 px-4 scroll-smooth snap-x snap-mandatory">
+     <div  className="flex justify-center items-center">
+       <Button onClick={rightClickHandle} variant="solid" color="gold"  >يمين</Button>
+      <div  ref={scrollRef} className="flex overflow-x-auto w-300 [&::-webkit-scrollbar]:hidden [scrollbar-width:none] overflow-y-hidden justify-start gap-4 px-4 scroll-smooth snap-x snap-mandatory">
        
       {recentBooks.map(n=>(
       <div className="dark:bg-cardColor-dark bg-card-Color-white flex-shrink-0 pt-5 pr-4  pl-4 pb-5 rounded-2xl me-7 ms-7  reletive  transition-[1s] ease-in">
@@ -150,7 +161,7 @@ export default function Main(){
      ))}
 
         </div>
-        <Button>يسار</Button>
+        <Button onClick={leftClickHandle} variant="solid" color="gold">يسار</Button>
      </div>
 </div>
 

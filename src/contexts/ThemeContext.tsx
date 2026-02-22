@@ -28,10 +28,10 @@ export function ThemeProvider({children}:{children:ReactNode}){
         break;
       default: {
         if(window.matchMedia("(prefers-color-scheme: dark)").matches){
-          console.log("it is dark");
+          localStorage.setItem("theme","dark");
           document.documentElement.setAttribute("data-theme", "dark");
         }else{
-          console.log("it is white");
+          localStorage.setItem("theme","white");
           document.documentElement.removeAttribute("data-theme");
         }
       }
