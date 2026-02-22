@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@font-face {
+  font-family: 'ArabicTitle';
+  src: url('fonts/alfont_com_KAHandNaskhV2-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'GeneralArabicFont';
+  src: url('fonts/janna_LT_bold.ttf');
+}
+
+@font-face {
+  font-family: 'GeneralArabicFont2';
+  src: url('fonts/KAF-AREF-RUQAA-TITL-SW-.otf');
+}
+
+@theme {
+ --color-dark1: rgba(24,24,24,1);
+ --color-whiteText: rgba(225,225,225);
+ --color-cardColor-dark: rgba(50, 50, 50, 1);
+ --color-card-Color-white: rgba(225,225,225,0.4);
+}
+
+.CarouselTitle{
+    font-family: 'GeneralArabicFont2';
+}
+body{
+    font-family: GeneralArabicFont;
+}
