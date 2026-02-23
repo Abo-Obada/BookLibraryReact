@@ -1,5 +1,5 @@
 import {  PushpinOutlined, StarTwoTone } from "@ant-design/icons";
-import { Button, Carousel, Divider } from "antd";
+import { Button, Carousel, Divider, Rate } from "antd";
 import { useRef } from "react";
 
 
@@ -25,7 +25,7 @@ const recentBooks = [
   {
     bookName: "قوة عقلك الباطن",
     bookAuthor: "جوزيف ميرفي",
-    views: 562342,
+    views: 9999999999999,
     rating: 5,
     imageLink: "https://m.media-amazon.com/images/I/61PqMZ0L85L.jpg"
   },
@@ -93,6 +93,16 @@ const recentBooks = [
     imageLink: "https://covers.openlibrary.org/b/isbn/9780241972939-L.jpg"
   }
 ];
+
+const bookCategory = [
+  {name:"دين"},
+  {name:"فلسفة"},
+  {name:"تاريخ"},
+  {name:"روايات"},
+  {name:"قصص أطفال"},
+  {name:"تفسير قرأن"},
+  {name:"أحاديث"},
+];
   
 
 export default function Main(){
@@ -143,7 +153,7 @@ export default function Main(){
              <h1>عدد المشاهدات {n.views}</h1>
             <div className="topCover flex justify-between">
                <div>
-                {Array.from({ length: n.rating }).map((_, i) => ( <StarTwoTone  twoToneColor={"#db9600"} />))}
+                <Rate defaultValue={n.rating} size="small"/>
                </div>
                <div>
                  <PushpinOutlined />
@@ -163,8 +173,57 @@ export default function Main(){
         </div>
         <Button onClick={leftClickHandle} variant="solid" color="gold">يسار</Button>
      </div>
-</div>
 
+     <div className="mt-10">
+          <Divider style={{borderColor: localStorage.getItem("theme") == "dark" ? '#4e4e4e' : '', color: localStorage.getItem("theme") == "dark" ? 'white' : ''}}>
+            <h1 className="">تصفح المزيد من الكتب</h1>
+         </Divider> 
+     </div>
+
+
+
+
+     <div className="allBooks grid grid-cols-[auto_200px]">
+     
+     
+      <div className="grid grid-cols-5 gap-5 border">
+ {recentBooks.map(n=>(
+      <div className="dark:bg-cardColor-dark bg-card-Color-white flex-shrink-0 pt-5 pr-4  pl-4 pb-5 rounded-2xl me-7 ms-7  reletive  transition-[1s] ease-in">
+             <h1>عدد المشاهدات {n.views}</h1>
+            <div className="topCover flex justify-between">
+               <div>
+                <Rate defaultValue={n.rating} size="small"/>
+               </div>
+               <div>
+                 <PushpinOutlined />
+               </div>
+            </div>
+            <img className="w-50 w-50" src={n.imageLink}  />
+        <div className="mt-5">
+          <h4>{n.bookName}</h4>
+          <h5>المؤلف: {n.bookAuthor}</h5>
+            <Button type="link" color="primary" variant="text">
+                مراجعة
+            </Button>
+        </div>
+      </div>
+     ))}      
+     </div>
+     <div className="bookCategory border flex-shrink-0">
+      <div className="title ">
+        تصنيف الكتب
+      </div>
+
+      <div>
+        <li className="list-none">
+          {bookCategory.map(n=>(
+            <ol>{n.name}</ol>
+          ))}
+        </li>
+      </div>
+     </div>
+     </div>
+</div>
 );
 }
 

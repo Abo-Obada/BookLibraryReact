@@ -9,7 +9,6 @@ const headerLayout:string[] = [
 function Header(){
     return(
         <>
-         
         <div className="flex items-center justify-evenly gap-4 mt-5 mb-5">
             <div className="">
                 <li className="flex">
