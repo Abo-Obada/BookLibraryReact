@@ -1,38 +1,73 @@
-import { FacebookOutlined, InstagramOutlined, MailOutlined, XOutlined } from "@ant-design/icons";
-import Logo from "../../assets/Logo3.png"
-import TextArea from "antd/es/input/TextArea";
-import { Button, Input } from "antd";
-export default function Footer(){
-   const date = new Date().getFullYear();
-    return(
-    <>
-      <div className="grid grid-cols-3  dark:bg-dark/100 bg-card-Color-white p-5">
-        <div>
-            <p>
-                مكتبة حفار, هي مكتبة مستقلة تقوم بمراجعة الكتب وفق الفهم وفق هدف الكتاب أو الرواية. 
-                المقصود في هذه الصفحة هو مراجعة الكتب و طرح ملخص للكتاب.
-                نعمل بشكل جاهد على مراجعة الكتب و العمل على التدقيق الإملائي أيضاً.
-            </p>
-            <img src={Logo} alt="" className={`if ${localStorage.getItem("theme") ==="dark" ? "invert":""} w-100`}/>
-        </div>
-        <div className="flex gap-2 flex-col items-start w-120">
-            <h1>أي شكوى؟ </h1>
-            <Input placeholder="أدخل الإيميل هنا"/>
-            <TextArea rows={10} placeholder="الشرح......."/>
-            <Button variant="solid" color="primary">إرسال</Button>
-        </div>
-          <div className="flex flex-col items-start">
-            <h1>رابط التواصل الإجتماعي</h1>
-            <span  className="text-[30px] mt-4"><InstagramOutlined/> <span className="text-[20px]">إنستقرام</span></span>
-            <span  className="text-[30px] mt-4"><FacebookOutlined/> <span className="text-[20px]">فيس بوك</span></span>
-            <span  className="text-[30px] mt-4"><XOutlined/> <span className="text-[20px]">تويتر/أكس</span></span>
-            <span  className="text-[30px] mt-4"><MailOutlined/> <span className="text-[20px]">user123@example.com</span></span>
-            <span className="mt-10">
-                 <h1 className="">جميع الحقوق و النشر محفوظة لدى موقع حفار للكتب </h1>
-                <h1>{date}©</h1>
-            </span>
+import {
+  FacebookOutlined,
+  InstagramOutlined,
+  MailOutlined,
+  XOutlined,
+} from "@ant-design/icons";
+import Logo from "../../assets/Logo3.png";
 
+export default function Footer() {
+  const date = new Date().getFullYear();
+  const isDark = localStorage.getItem("theme") === "dark";
+
+  return (
+    <footer className="mt-20 border-t dark:border-white/10 border-black/10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-10 py-14 dark:bg-black/40 bg-white/60 backdrop-blur">
+
+    
+        <div className="space-y-4">
+          <img
+            src={Logo}
+            alt="Haffar Logo"
+            className={`w-32 ${isDark ? "invert" : ""}`}
+          />
+          <p className="text-sm leading-6 text-gray-700 dark:text-gray-300">
+            مكتبة حفّار منصة مستقلة لمراجعة الكتب وتقديم ملخصات دقيقة
+            مع اهتمام خاص بجودة اللغة والفهم العميق لمحتوى الكتاب.
+          </p>
+        </div>
+
+       
+        <div className="space-y-3">
+          <h3 className="font-semibold text-lg">روابط سريعة</h3>
+          <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
+            <li className="hover:underline cursor-pointer">الكتب</li>
+            <li className="hover:underline cursor-pointer">أحدث المراجعات</li>
+            <li className="hover:underline cursor-pointer">من نحن</li>
+            <li className="hover:underline cursor-pointer">تواصل معنا</li>
+          </ul>
+        </div>
+
+        
+        <div className="space-y-4">
+          <h3 className="font-semibold text-lg">تابعنا</h3>
+
+          <div className="flex items-center gap-3 text-lg cursor-pointer hover:text-pink-500 transition">
+            <InstagramOutlined />
+            <span className="text-sm">Instagram</span>
+          </div>
+
+          <div className="flex items-center gap-3 text-lg cursor-pointer hover:text-blue-600 transition">
+            <FacebookOutlined />
+            <span className="text-sm">Facebook</span>
+          </div>
+
+          <div className="flex items-center gap-3 text-lg cursor-pointer hover:text-gray-500 transition">
+            <XOutlined />
+            <span className="text-sm">X / Twitter</span>
+          </div>
+
+          <div className="flex items-center gap-3 text-lg">
+            <MailOutlined />
+            <span className="text-sm">user123@example.com</span>
+          </div>
         </div>
       </div>
-    </>)
+
+    
+      <div className="text-center text-xs py-4 dark:text-gray-400 text-gray-600">
+        © {date} جميع حقوق النشر محفوظة لموقع حفّار للكتب
+      </div>
+    </footer>
+  );
 }
