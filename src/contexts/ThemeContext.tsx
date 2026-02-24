@@ -8,7 +8,6 @@ type ThemeContextType = {
   setTheme: (theme: Theme) => void;
 };
 
-
 export const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({children}:{children:ReactNode}){

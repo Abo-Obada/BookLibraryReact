@@ -1,22 +1,22 @@
 import { Button, Rate } from "antd";
-import type { BookDesc } from "../../models/model/bookType";
+import type { BookDesc } from "../../Services/model/bookType";
 
- function DisplayBooks({bookName, views, rating, imageLink,bookAuthor,description,id}:BookDesc ){
+ function DisplayBooks(book:BookDesc ){
 
 return(
-<div id={id} className="group relative dark:bg-cardColor-dark bg-card-Color-white flex-shrink-0 pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3">
+<div id={book.id} className="group relative dark:bg-cardColor-dark bg-card-Color-white flex-shrink-0 pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3">
 
-  <h1>عدد المشاهدات {views}</h1>
+  <h1>عدد المشاهدات {book.views}</h1>
 
   <div className="topCover flex justify-between">
-    <Rate defaultValue={rating} size="small" />
+    <Rate defaultValue={book.rating} size="small" />
   </div>
 
-  <img className="w-70 rounded-[5px]" src={imageLink}/>
+  <img className="w-70 rounded-[5px]" src={book.imageLink}/>
 
   <div className="mt-5">
-    <h4>{bookName}</h4>
-    <h5>المؤلف: {bookAuthor}</h5>
+    <h4>{book.bookName}</h4>
+    <h5>المؤلف: {book.bookAuthor}</h5>
    
   </div>
   <div
@@ -30,7 +30,7 @@ return(
       rounded-3xl
     "
   >
-    <p className="text-white mb-3 me-5 ms-5 text-[1.6rem]">{description}</p>
+    <p className="text-white mb-3 me-5 ms-5 text-[1.6rem]">{book.description}</p>
     <Button type="link" color="lime" variant="text">
                 مراجعة
             </Button>

@@ -1,5 +1,7 @@
 //This is API mimic folder for pretending that we have an Actual API but, we don't :D. 
 
+import type { User } from "../model/bookType";
+
 export const recentBooks = [
   {
     bookName: "قوة عقلك الباطن",
@@ -91,7 +93,6 @@ export const bookCategory = [
   {name:"تفسير قرأن"},
   {name:"أحاديث"},
 ];
-
 export const carouselSwapper = [
   {
     title: "لا تنسوا أهل غزة من صالح الدعاء",
@@ -120,3 +121,9 @@ export const carouselSwapper = [
     backdropColor: "",
   },
 ];
+
+export default async function User():Promise<User> {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  const data = await res.json();
+  return data;
+}
