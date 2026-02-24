@@ -46,7 +46,7 @@ export default  function Main() {
       </Divider>
       </div>
      
-     <div className="mt-10">
+     <div className="mt-10 ">
        <VerticalLayout>
        {recentBooks.map((n, id) => (
             <DisplayBooks id={id.toString()} views={n.views} rating={n.rating} bookName={n.bookName} bookAuthor={n.bookAuthor} description={n.description} imageLink={n.imageLink} />
@@ -60,26 +60,39 @@ export default  function Main() {
         </Divider>
       </div>
 
-      <div className=" grid grid-cols-[100rem_15rem] justify-center bg-card3-Color-white/20 dark:bg-card3-Color/20 p-10">
-          <BookLayout>
-            {recentBooks.map((n, id) => (
-            <DisplayBooks id={id.toString()} views={n.views} rating={n.rating} bookName={n.bookName} bookAuthor={n.bookAuthor} description={n.description} imageLink={n.imageLink} />
-          ))}
-          </BookLayout>
-      <div>
+    <div className="mt-10 grid gap-10 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 bg-card3-Color-white/20 dark:bg-card3-Color/20 p-10">
+  
+  <div className="lg:col-span-3">
+    <BookLayout>
+      {recentBooks.map((n, id) => (
+        <DisplayBooks 
+          id={id.toString()} 
+          views={n.views} 
+          rating={n.rating} 
+          bookName={n.bookName} 
+          bookAuthor={n.bookAuthor} 
+          description={n.description} 
+          imageLink={n.imageLink} 
+        />
+      ))}
+    </BookLayout>
+  </div>
 
-         <CategoryLayout categoryName="تصنيف الكتب">
-        {bookCategory.map((n, index)=>(
-           <Category id={index.toString()} categoryName={n.name} />
-        ))}
-        </CategoryLayout>
-         <CategoryLayout categoryName="حسب الراوي">
-        {bookCategory.map((n, index)=>(
-           <Category id={index.toString()} categoryName={n.name} />
-        ))}
-        </CategoryLayout>
-      </div>
-      </div>
+  <div className="lg:col-span-1 space-y-5">
+    <CategoryLayout categoryName="تصنيف الكتب">
+      {bookCategory.map((n, index) => (
+        <Category key={index} id={index.toString()} categoryName={n.name} />
+      ))}
+    </CategoryLayout>
+
+    <CategoryLayout categoryName="حسب الراوي">
+      {bookCategory.map((n, index) => (
+        <Category key={index} id={index.toString()} categoryName={n.name} />
+      ))}
+    </CategoryLayout>
+  </div>
+
+    </div>
     </div>
   );
 }
