@@ -12,7 +12,7 @@ return(
     <Rate defaultValue={book.rating} size="small" />
   </div>
 
-  <img className="w-70 rounded-[5px]" src={book.imageLink}/>
+  <img className="w-70 rounded-[10px] mt-3" src={book.imageLink}/>
 
   <div className="mt-5">
     <h4>{book.bookName}</h4>

@@ -2,12 +2,10 @@ import { DesktopOutlined, MoonFilled, SunFilled } from "@ant-design/icons";
 import logo from "../../assets/Logo3.png";
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { Link } from "react-router-dom";
 
-const headerLayout:string[] = [
-    "التصنيفات",
-    "الكتب",
-    "حول",
-    "القائمة الرئيسية"
+const headerLayout= [{name:"الكتب",link:"/books"},
+  {name:"القائمة الرئيسية",link:"/"}
 ]; 
 function Header(){
     const theme = useContext(ThemeContext);
@@ -17,15 +15,15 @@ function Header(){
         <div className="flex"></div>
         <div className="flex justify-between me-5 ms-5 mt-5 mb-5">
         <div className="">
-    <ol className="flex items-center gap-2">
+        <ol className="flex items-center gap-2">
       {headerLayout.map(e => (
-        <li className="m-3">{e}</li>
+        <li className="m-3"><Link to={e.link}>{e.name}</Link></li>
       ))}
       
       {/* Moon Icon */}
-      <li className={`rounded-[1rem] p-2 cursor-pointer transition-colors ${
+      <li className={`rounded-[10rem] p-2 cursor-pointer transition-colors ${
         theme?.theme === "dark" 
-          ? 'bg-white hover:bg-white/80' 
+          ? 'bg-white hover:bg-white/80 text-black' 
           : 'hover:bg-black/10'
       }`}>
         <MoonFilled 
@@ -35,7 +33,7 @@ function Header(){
       </li>
 
       {/* Sun Icon */}
-      <li className={`rounded-[1rem] p-2 cursor-pointer transition-colors ${
+      <li className={`rounded-[10rem] p-2 cursor-pointer transition-colors ${
         theme?.theme === "white" 
           ? 'bg-black hover:bg-white/80 text-white' 
           : 'hover:bg-black/10'
@@ -45,7 +43,7 @@ function Header(){
           style={{ fontSize: "30px" }}
         />
       </li>
-    </ol>
+        </ol>
   </div>
 
   <div className="">
