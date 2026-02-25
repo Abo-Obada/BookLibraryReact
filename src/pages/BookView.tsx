@@ -112,6 +112,7 @@ export default function BookView(){
             <div className="box2">
                 <CardLayout rating={book.rating} bookInfo={bookInfo} image={book.imageLink} title="معلومات سريعة عن الكتاب"/>
             </div>
+
         </div>
     )
 }

@@ -1,13 +1,18 @@
+
 import BookLayout from "../components/layouts/BooksLayout";
 import CategoryLayout from "../components/layouts/CategoryLayout";
+import SearchInput from "../components/ui/SearchInput";
 import DisplayBooks from "../components/ui/ShowBooks";
 import Category from "../components/ui/ShowCategory";
 import { bookCategory, recentBooks } from "../Services/api/books";
+
 export default function Books(){
     return(
        <div className="flex justify-center">
          <div className="grid grid-cols-[1fr_200px] scale-80">
             <div className="box1">
+                
+                <SearchInput placeholder="إبحث عن الحق حتى لو في الصين" width={100}/>
                 <BookLayout>
                     {recentBooks.map((n,index)=>(
                        <DisplayBooks id={index.toString()} 
