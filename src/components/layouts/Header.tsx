@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const headerLayout= [{name:"الكتب",link:"/books"},
   {name:"القائمة الرئيسية",link:"/"},
-  {name:"المؤلفون",link:"/"}
+  {name:"حول",link:"/about"}
 ]; 
 function Header(){
     const theme = useContext(ThemeContext);

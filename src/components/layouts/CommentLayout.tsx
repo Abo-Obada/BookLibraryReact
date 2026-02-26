@@ -1,4 +1,4 @@
-import { UserAddOutlined } from "@ant-design/icons";
+import { LikeFilled, LikeOutlined, UserAddOutlined } from "@ant-design/icons";
 import { Avatar, Button, Dropdown, Rate, type MenuProps } from "antd";
 import type { ReactNode } from "react";
 
@@ -9,6 +9,8 @@ type Users = {
     comment:string,
     rating: undefined | number,
     date: string,
+    like: string
+    profileImage:string
 }
 type CommentProps = { 
     users:Users[],
@@ -54,7 +56,7 @@ export default function CommentLayout({users, children }:CommentProps){
                 {//**Right side */ 
                 }
                 <div className="flex align-baseline items-center gap-2 ms-2">
-                  <Avatar icon={<UserAddOutlined/>} size={50}/>
+                  <Avatar src={n.profileImage} size={50}/>
                   <h1>{n.username}</h1>
                   <span className="ms-2 text-current/50">{n.date}</span>
                 </div>
@@ -82,9 +84,15 @@ export default function CommentLayout({users, children }:CommentProps){
                 </div>
 
               </div>
-              <div className="cardCotnent m-5">
-                <p>{n.comment}</p>
+              <div className="cardCotnent m-5 flex  justify-between">
+               <div>
+                 <p>{n.comment}</p>
+               </div>
+               <div>
+                <LikeOutlined/> <span>{n.like}</span>
+               </div>
               </div>
+              
             </div>
 
            
