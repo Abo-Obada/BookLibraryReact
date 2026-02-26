@@ -19,8 +19,8 @@ export default function VerticalLayout({children}:VerticalDisplayProps){
     }
   }
     return(
-         <div>
-       <div className=" flex justify-center items-center bg-card3-Color-white/20 dark:bg-card3-Color/20 p-20 gap-5">
+         <div className="me-10 ms-10">
+       <div className=" flex justify-center items-center  dark:bg-card3-Color/20 gap-5">
         <Button onClick={rightClickHandle} shape="circle" variant="solid" color="gold"><ArrowRightOutlined /></Button>
         <div ref={scrollRef} className="flex overflow-x-auto  [&::-webkit-scrollbar]:hidden [scrollbar-width:none] overflow-y-hidden justify-start gap-4 px-4 scroll-smooth snap-x snap-mandatory">
           {children}

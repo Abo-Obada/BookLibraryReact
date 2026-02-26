@@ -63,7 +63,7 @@ export default  function Main() {
     <div className="mt-10 grid gap-10 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 bg-card3-Color-white/20 dark:bg-card3-Color/20 p-10">
   
   <div className="lg:col-span-3">
-    <BookLayout>
+    <BookLayout height="300" columnSize="5" scroll="horizontal">
       {recentBooks.map((n, id) => (
         <DisplayBooks 
           id={id.toString()} 
