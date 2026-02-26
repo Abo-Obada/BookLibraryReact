@@ -1,11 +1,12 @@
-import { DesktopOutlined, MoonFilled, SunFilled } from "@ant-design/icons";
+import {  MoonFilled, SunFilled } from "@ant-design/icons";
 import logo from "../../assets/Logo3.png";
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 
 const headerLayout= [{name:"الكتب",link:"/books"},
-  {name:"القائمة الرئيسية",link:"/"}
+  {name:"القائمة الرئيسية",link:"/"},
+  {name:"المؤلفون",link:"/"}
 ]; 
 function Header(){
     const theme = useContext(ThemeContext);
