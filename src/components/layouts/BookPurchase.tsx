@@ -12,7 +12,7 @@ export type Props = {
 
 export default function BookPurchase(props:{pro:Props[]}){
     return (
-        <div className="mt-10 border rounded p-5">
+        <div className="mt-10 border border-current/20 rounded  p-5">
              <h1 className="text-[3rem]">للشراء</h1>
              {props.pro.map((n,index)=>(
                 <a key={index} href={n.link} className={`text-[1.5rem] ms-2 me-2  ${colorClasses[n.color]}`} target="_blank">{n.label}</a>

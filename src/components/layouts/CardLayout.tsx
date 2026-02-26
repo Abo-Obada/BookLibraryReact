@@ -34,12 +34,11 @@ export default function CardLayout(children:CardProps){
         colorBgContainer: theme?.theme === "dark" ? "var(--cardColor-dark)" : "#fff",
         colorText: theme?.theme === "dark" ? "white": "black",
         colorTextHeading: theme?.theme === "dark" ? "white": "black",
-        
       },
     },
   }}
 >
-    <Card title={`${children.title}`} variant="outlined">
+    <Card title={`${children.title}`} variant="outlined" style={{border:"solid 1px rgba(225,225,225,0.2)"}}>
     <img src={children.image} alt={children.image} className="rounded-[0.7rem]" />
     <Divider style={{ borderColor: localStorage.getItem("theme") == "dark" ? '#4e4e4e' : '', color: localStorage.getItem("theme") == "dark" ? 'white' : '' }} />
     
