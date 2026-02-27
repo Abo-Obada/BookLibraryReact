@@ -4,7 +4,7 @@ import { ThemeContext } from "../contexts/ThemeContext"
 export default function About(){
     const theme = useContext(ThemeContext);
 return(
-<div className="flex flex-col m-20 h-screen overflow-y-scroll snap-y snap-mandatory ">
+<div className="flex flex-col m-20 h-screen overflow-y-scroll snap-y snap-mandatory no-scrollbar">
  <section className="snap-start">
     <div className="fadeup-animation ">
     <h1 className="text-[7rem] ">من نحن؟</h1>

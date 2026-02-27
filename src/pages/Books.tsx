@@ -13,7 +13,7 @@ export default function Books() {
                 <div className="box1">
 
                     <SearchInput height={"h-16"} placeholder="إبحث عن الحق حتى لو في الصين" width={"w-100"} />
-                    <BookLayout height="300" columnSize="5"  scroll="vertical">
+                    <BookLayout height={300} cols={5}  scroll="vertical">
                         {recentBooks.map((n, index) => (
                             <DisplayBooks id={index.toString()}
                                 bookAuthor={n.bookAuthor}
