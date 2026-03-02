@@ -1,6 +1,7 @@
 //This is API mimic folder for pretending that we have an Actual API but, we don't :D. 
 
-import type { User } from "../model/bookType";
+import axios from "axios";
+
 export const recentBooks = [
   {
     bookName: "قوة عقلك الباطن",
@@ -84,13 +85,13 @@ export const recentBooks = [
   }
 ];
 export const bookCategory = [
-  {name:"دين"},
-  {name:"فلسفة"},
-  {name:"تاريخ"},
-  {name:"روايات"},
-  {name:"قصص أطفال"},
-  {name:"تفسير قرأن"},
-  {name:"أحاديث"},
+  { name: "دين" },
+  { name: "فلسفة" },
+  { name: "تاريخ" },
+  { name: "روايات" },
+  { name: "قصص أطفال" },
+  { name: "تفسير قرأن" },
+  { name: "أحاديث" },
 ];
 export const carouselSwapper = [
   {
@@ -216,7 +217,7 @@ export const book2 = [
     `
   }
 ];
-  export const comments = [
+export const comments = [
   {
     id: "b1",
     comment: "الكتاب جميل وفيه أفكار تحفيزية، حسّيت إنه أعطاني دفعة نفسية.",
@@ -254,8 +255,17 @@ export const book2 = [
     profileImage: "https://i.pravatar.cc/150?img=56",
   },
 ];
-export default async function User():Promise<User> {
-  const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-  const data = await res.json();
-  return data;
-}
+
+
+// axios.defaults.withCredentials = true;
+//         axios.defaults.withXSRFToken = true;
+
+//         try {
+//             await axios.get('http://localhost:8000/sanctum/csrf-cookie');
+//             const resp = await axios.post('http://localhost:8000/api/login', {
+//                 "email": email,
+//                 "password": password
+//             });
+//         } catch (error) {
+//             console.log(error);
+//         }
