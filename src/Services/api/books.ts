@@ -1,7 +1,5 @@
 //This is API mimic folder for pretending that we have an Actual API but, we don't :D. 
-
-import axios from "axios";
-
+const url: string = "http://localhost:8000/api/"
 export const recentBooks = [
   {
     bookName: "قوة عقلك الباطن",
