@@ -1,37 +1,32 @@
-import { useState, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import { Button, Modal } from 'antd';
 
 type Props = {
     btnName: string,
     title: string,
-    children: ReactNode
+    children: ReactNode,
+    open: boolean,
+    onOpen: () => void,
+    onClose: () => void,
 }
 
-function CustomModal({ children, btnName, title }: Props) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const showModal = () => {
-        setIsModalOpen(true);
-    };
-    const handleCancel = () => {
-        setIsModalOpen(false);
-    };
 
+function CustomModal({ children, btnName, title, open, onOpen, onClose }: Props) {
     return (
         <>
-
-            <Button onClick={showModal} type='text' variant='text'  >
+            <Button onClick={onOpen} type='text' variant='text'>
                 {btnName}
             </Button>
             <Modal
-                title={`${title}`}
+                title={title}
                 closable={{ 'aria-label': 'Custom Close Button' }}
-                open={isModalOpen}
-                onCancel={handleCancel}
+                open={open}
+                onCancel={onClose}
                 footer={null}>
                 {children}
             </Modal>
         </>
     );
-};
+}
 
 export default CustomModal;

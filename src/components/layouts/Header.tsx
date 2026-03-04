@@ -1,10 +1,11 @@
 import { MoonFilled, SunFilled } from "@ant-design/icons";
 import logo from "../../assets/Logo3.png";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 import CustomModal from "../ui/CustomModal";
 import { Button, Form, Input } from "antd";
+import { query } from "../../Services/query/auth";
 
 
 const headerLayout = [{ name: "الكتب", link: "/books" },
@@ -12,8 +13,24 @@ const headerLayout = [{ name: "الكتب", link: "/books" },
 { name: "حول", link: "/about" }
 ];
 
-
 function Header() {
+  const { mutate } = query.server.login();
+  const [email, setEmail] = useState<string | undefined>(undefined);
+  const [password, setPassword] = useState<string | undefined>(undefined);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const submit = () => {
+
+    if (password && email) {
+      mutate({ email: email, password: password }, {
+        onSuccess: () => {
+
+        }
+      });
+    }
+    setIsModalOpen(false);
+  }
+
   const theme = useContext(ThemeContext);
 
   return (
@@ -50,23 +67,24 @@ function Header() {
 
             <li className="m-3">
               <CustomModal
+                onOpen={() => setIsModalOpen(true)}
+                onClose={() => setIsModalOpen(false)}
+                open={isModalOpen}
                 btnName="تسجيل الدخول"
                 title="سجل الدخول الأن " >
-
-                <Form autoComplete="on" >
+                <Form autoComplete="on" onFinish={submit}>
                   <Form.Item label="أيميل" name={"username"} rules={[
                     { required: true, message: "الرجاء ملئ الحقل " },
                     { type: "email", message: "يجب أن يكون أيميل" },
                   ]}
                     labelAlign="right">
-                    <Input type={"email"} placeholder="ضع الإيميل " />
+                    <Input type={"email"} onChange={(e) => setEmail(e.target.value)} placeholder="ضع الإيميل " />
                   </Form.Item>
 
                   <Form.Item label="كلمة المرور" name={"password"} rules={[
                     { required: true, message: "الرجاء ملئ الحقل " },
-                    { min: 5, message: "يجب على الأقل أنت تجلخ 5 جلخات" }
                   ]} labelAlign="right">
-                    <Input.Password type={"email"} placeholder="ضح كلمة المرور" />
+                    <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder="ضح كلمة المرور" />
                   </Form.Item>
                   <Button htmlType="submit">
                     سجل الأن
@@ -76,7 +94,6 @@ function Header() {
               </CustomModal>
             </li>
             <li>
-
             </li>
           </ol>
         </div>
