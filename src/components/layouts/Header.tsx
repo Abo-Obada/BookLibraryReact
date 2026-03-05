@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 import CustomModal from "../ui/CustomModal";
 import { Button, Form, Input, message } from "antd";
 import { query } from "../../Services/query/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { authContext } from "../../contexts/AuthContext";
 
 
 const headerLayout = [{ name: "الكتب", link: "/books" },
@@ -19,26 +20,31 @@ function Header() {
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [messageApi, contextHolder] = message.useMessage();
-
-  const {mutate: loginMuatate,isPending:isPendingMutate} = useMutation({mutationFn:query.server.login});
-  const {mutate: logoutMutate,isPending:isPendingLogoutMutate} = useMutation({mutationFn:query.server.logout});
+  const { mutate: loginMuatate, isPending: isPendingMutate } = useMutation({ mutationFn: query.server.login });
+  const { mutate: logoutMutate, isPending: isPendingLogoutMutate } = useMutation({ mutationFn: query.server.logout });
+  const auth = useContext(authContext);
+  const isLogged = auth?.isSuccess === true;
+  const queryClient = useQueryClient();
 
   const submit = () => {
     if (password && email) {
-      loginMuatate({email:email,password:password},{onSuccess:()=>{
-            setIsModalOpen(false);
-            messageApi.success("تم تسجيل الدخول بنجاح",3);
-      },onError:()=>{
-          messageApi.error("حدث خطب ما في تسجيل الدخول",5);
-      }});
+      loginMuatate({ email: email, password: password }, {
+        onSuccess: () => {
+          setIsModalOpen(false);
+          queryClient.invalidateQueries({ queryKey: ['me'] });
+          messageApi.success("تم تسجيل الدخول بنجاح", 3);
+        }, onError: () => {
+          messageApi.error("حدث خطب ما في تسجيل الدخول", 5);
+        }
+      });
     }
   }
 
   const theme = useContext(ThemeContext);
-
   return (
+
     <>
-    {contextHolder}
+      {contextHolder}
       <div className="flex"></div>
       <div className="flex justify-between me-5 ms-5 mt-5 mb-5">
         <div className="">
@@ -70,7 +76,7 @@ function Header() {
             </li>
 
             <li className="m-3">
-              <CustomModal
+              {!isLogged ? <CustomModal
                 onOpen={() => setIsModalOpen(true)}
                 onClose={() => setIsModalOpen(false)}
                 open={isModalOpen}
@@ -95,26 +101,31 @@ function Header() {
                   </Button>
                 </Form>
 
-              </CustomModal>
+              </CustomModal> : null}
             </li>
-            <li>
-              <Button onClick={()=>logoutMutate(undefined,{onSuccess:()=>{
-                messageApi.success("تم تسجيل الخروج بنجاح")
-              },
-              onError:()=>{
-                messageApi.error("حدث خطب ما في تسجيل الخروج")
-              }            
-            })} loading={isPendingLogoutMutate}>تسجيل الخروج</Button>
+
+            <li className="m-3">
+              {!isLogged ? undefined : <Button onClick={() => logoutMutate(undefined, {
+                onSuccess: () => {
+                  queryClient.invalidateQueries({ queryKey: ['me'] });
+                  messageApi.success("تم تسجيل الخروج بنجاح")
+                },
+                onError: () => {
+                  messageApi.error("حدث خطب ما في تسجيل الخروج")
+                }
+              })} loading={isPendingLogoutMutate}>تسجيل الخروج</Button>}
             </li>
+
+
           </ol>
         </div>
 
-        <div className="">
-          <img
-            src={logo}
-            className={`h-15 ${theme?.theme === "dark" ? 'invert' : ''}`}
+        <div className="flex justify-center items-center gap-10">
+
+          <img src={logo} className={`h-15 ${theme?.theme === "dark" ? 'invert' : ''}`}
           />
         </div>
+
       </div >
     </>
   );

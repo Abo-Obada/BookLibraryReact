@@ -1,23 +1,22 @@
-import { useQuery } from "@tanstack/react-query";
 import { api } from "../api/auth";
 import { type Me, type User } from "../model/authModel";
 
 export const query = {
 
     server: {
-        login: async (newLogin:User) => {
+        login: async (newLogin: User) => {
             const res = await api.login(newLogin);
-            return  res;
+            return res;
         },
-        logout: async ( ) => {
-        const res = await api.logout();
-        return  res;
+        logout: async () => {
+            const res = await api.logout();
+            return res;
         },
-        
+
         me: async (): Promise<Me> => {
-        const res = await api.me();
-        return res;
-    }
+            const res = await api.me();
+            return res;
+        }
     }
 
 }

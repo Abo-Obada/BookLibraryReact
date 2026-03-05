@@ -8,14 +8,14 @@ export const api =
         axios.defaults.withCredentials = true;
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
-        const res =  await axios.post(url + "login", user);
+        const res = await axios.post(url + "login", user);
         return await res.data;
     },
     logout: async function logout(): Promise<void> {
         axios.defaults.withCredentials = true;
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
-        const res =  await axios.post(url + "logout");
+        const res = await axios.post(url + "logout");
         return await res.data;
     },
 
@@ -23,7 +23,18 @@ export const api =
         axios.defaults.withCredentials = true;
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
-        const res =  await axios.get(url + "me");
-        return await res.data;
+        try {
+            const res = await axios.get(url + "me");
+            return res.data;
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                const status = error.response?.status ?? 0;
+                const err = new Error(error.message) as Error & { status: number };
+                err.status = status;
+                throw err;
+            }
+            throw error;
+        }
     }
+
 }
