@@ -13,7 +13,7 @@ export const query = {
             return res;
         },
 
-        me: async (): Promise<Me> => {
+        me: async () => {
             const res = await api.me();
             return res;
         }
