@@ -11,3 +11,8 @@ export type LoginResponse = {
         name: string
     }
 }
+
+export type Me = {
+    username: string,
+    email:string
+}

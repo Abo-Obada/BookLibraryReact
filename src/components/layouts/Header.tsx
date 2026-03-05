@@ -4,8 +4,9 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 import CustomModal from "../ui/CustomModal";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import { query } from "../../Services/query/auth";
+import { useMutation } from "@tanstack/react-query";
 
 
 const headerLayout = [{ name: "الكتب", link: "/books" },
@@ -14,27 +15,30 @@ const headerLayout = [{ name: "الكتب", link: "/books" },
 ];
 
 function Header() {
-  const { mutate } = query.server.login();
   const [email, setEmail] = useState<string | undefined>(undefined);
   const [password, setPassword] = useState<string | undefined>(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const {mutate: loginMuatate,isPending:isPendingMutate} = useMutation({mutationFn:query.server.login});
+  const {mutate: logoutMutate,isPending:isPendingLogoutMutate} = useMutation({mutationFn:query.server.logout});
 
   const submit = () => {
-
     if (password && email) {
-      mutate({ email: email, password: password }, {
-        onSuccess: () => {
-
-        }
-      });
+      loginMuatate({email:email,password:password},{onSuccess:()=>{
+            setIsModalOpen(false);
+            messageApi.success("تم تسجيل الدخول بنجاح",3);
+      },onError:()=>{
+          messageApi.error("حدث خطب ما في تسجيل الدخول",5);
+      }});
     }
-    setIsModalOpen(false);
   }
 
   const theme = useContext(ThemeContext);
 
   return (
     <>
+    {contextHolder}
       <div className="flex"></div>
       <div className="flex justify-between me-5 ms-5 mt-5 mb-5">
         <div className="">
@@ -86,7 +90,7 @@ function Header() {
                   ]} labelAlign="right">
                     <Input.Password onChange={(e) => setPassword(e.target.value)} placeholder="ضح كلمة المرور" />
                   </Form.Item>
-                  <Button htmlType="submit">
+                  <Button htmlType="submit" loading={isPendingMutate}>
                     سجل الأن
                   </Button>
                 </Form>
@@ -94,6 +98,13 @@ function Header() {
               </CustomModal>
             </li>
             <li>
+              <Button onClick={()=>logoutMutate(undefined,{onSuccess:()=>{
+                messageApi.success("تم تسجيل الخروج بنجاح")
+              },
+              onError:()=>{
+                messageApi.error("حدث خطب ما في تسجيل الخروج")
+              }            
+            })} loading={isPendingLogoutMutate}>تسجيل الخروج</Button>
             </li>
           </ol>
         </div>
