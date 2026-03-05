@@ -23,9 +23,7 @@ export function AuthContextProvider({ children }: { children: ReactNode }) {
     });
 
     const errorCode = isError && error ? (error as Error & { status?: number }).status : undefined;
-    if (errorCode) {
-        queryClient.invalidateQueries({ queryKey: ['me'] });
-    }
+
     return (
         <authContext.Provider value={{ data, isError, isLoading, isSuccess, errorCode }}>
             {children}
