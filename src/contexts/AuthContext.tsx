@@ -14,7 +14,6 @@ type props = {
 export const authContext = createContext<props | undefined>(undefined);
 
 export function AuthContextProvider({ children }: { children: ReactNode }) {
-    const queryClient = useQueryClient();
     const { data, isLoading, isError, isSuccess, error } = useQuery({
         queryKey: ['me'],
         queryFn: async () => await query.server.me(),

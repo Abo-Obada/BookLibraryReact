@@ -1,5 +1,5 @@
 import { api } from "../api/auth";
-import { type Me, type User } from "../model/authModel";
+import { type User } from "../model/authModel";
 
 export const query = {
 

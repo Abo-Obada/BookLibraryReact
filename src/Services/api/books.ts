@@ -1,5 +1,8 @@
+import axios from "axios";
+
 //This is API mimic folder for pretending that we have an Actual API but, we don't :D. 
-const url: string = "http://localhost:8000/api/"
+const url = "http://localhost:8000/api/";
+const csrf = "http://localhost:8000/sanctum/csrf-cookie";
 export const recentBooks = [
   {
     bookName: "قوة عقلك الباطن",
@@ -254,16 +257,24 @@ export const comments = [
   },
 ];
 
-
-// axios.defaults.withCredentials = true;
-//         axios.defaults.withXSRFToken = true;
-
-//         try {
-//             await axios.get('http://localhost:8000/sanctum/csrf-cookie');
-//             const resp = await axios.post('http://localhost:8000/api/login', {
-//                 "email": email,
-//                 "password": password
-//             });
-//         } catch (error) {
-//             console.log(error);
-//         }
+export const api = {
+  bookCover: {
+    get: async function get() {
+      axios.defaults.withCredentials = true;
+      axios.defaults.withXSRFToken = true;
+      await axios.get(csrf);
+      try {
+        const res = await axios.get(url + "bookcover");
+        return res.data;
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const status = error.response?.status ?? 0;
+          const err = new Error(error.message) as Error & { status: number };
+          err.status = status;
+          throw err;
+        }
+        throw error;
+      }
+    }
+  }
+}

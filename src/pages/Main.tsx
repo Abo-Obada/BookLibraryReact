@@ -1,23 +1,26 @@
-import { Carousel, Divider } from "antd";
+import { Carousel, Divider, Skeleton, Spin } from "antd";
 import DisplayBooks from "../components/ui/ShowBooks";
-import { recentBooks } from "../Services/api/books";
+import { api, recentBooks } from "../Services/api/books";
 import { bookCategory } from "../Services/api/books";
 import { carouselSwapper } from "../Services/api/books";
 import Category from "../components/ui/ShowCategory";
 import CategoryLayout from "../components/layouts/CategoryLayout";
 import VerticalLayout from "../components/layouts/VerticalDisplayLayout";
 import BookLayout from "../components/layouts/BooksLayout";
+import { useQuery } from "@tanstack/react-query";
+import { query } from "../Services/query/books";
+import { type BookCover } from "../Services/model/bookModel";
 
 
 
 
 
 export default function Main() {
-
-
+  const { data, isPending } = useQuery<BookCover[]>({ queryKey: ['book-cover'], queryFn: query.server.bookCover.get })
+  const index = [10];
   return (
-    <div className="grid grid-cols-1">
 
+    <div className="grid grid-cols-1">
       <div className="">
         <Carousel arrows draggable={true} autoplay effect="fade">
           {carouselSwapper.map(n => (
@@ -48,8 +51,16 @@ export default function Main() {
 
       <div className="mt-10 ">
         <VerticalLayout>
-          {recentBooks.map((n, id) => (
-            <DisplayBooks id={id.toString()} views={n.views} rating={n.rating} bookName={n.bookName} bookAuthor={n.bookAuthor} description={n.description} imageLink={n.imageLink} />
+          {data && data.map((n) => (
+            <DisplayBooks
+              uuid={n.uuid}
+              views={n.views}
+              book_rate={n.book_rate}
+              book_name={n.book_name}
+              book_description={n.book_description}
+              book_image={n.book_image}
+              book_page_number={n.book_page_number}
+            />
           ))}
         </VerticalLayout>
       </div>
@@ -63,19 +74,24 @@ export default function Main() {
       <div className="mt-10 grid gap-10 lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 bg-card3-Color-white/20 dark:bg-card3-Color/20 p-10">
 
         <div className="lg:col-span-3">
-          <BookLayout height={200} cols={5} scroll="horizontal">
-            {recentBooks.map((n, id) => (
-              <DisplayBooks
-                id={id.toString()}
-                views={n.views}
-                rating={n.rating}
-                bookName={n.bookName}
-                bookAuthor={n.bookAuthor}
-                description={n.description}
-                imageLink={n.imageLink}
-              />
+          {isPending ? (<div className="grid gap-4 grid-cols-3 text-3xl justify-center items-center">
+            {Array.from({ length: 12 }).map(n => (
+              <Skeleton.Node style={{ width: "280px", height: "200px" }} active={true} />
             ))}
-          </BookLayout>
+          </div>) :
+            (<BookLayout height={200} cols={5} scroll="horizontal">
+              {data && data.map((n) => (
+                <DisplayBooks
+                  uuid={n.uuid}
+                  views={n.views}
+                  book_rate={n.book_rate}
+                  book_name={n.book_name}
+                  book_description={n.book_description}
+                  book_image={n.book_image}
+                  book_page_number={n.book_page_number}
+                />
+              ))}
+            </BookLayout>)}
         </div>
 
         <div className="lg:col-span-1 space-y-5">
