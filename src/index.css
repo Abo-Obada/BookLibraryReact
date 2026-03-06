@@ -50,6 +50,24 @@ body{
     animation-timeline: view();
     animation-range: entry 0% cover 40%;
   }
+
+  @keyframes scroll-left {
+    from {translate: 100%;}
+    to {translate: 0%;}
+  }
+
+    .infinate-scroll-left{
+    animation: scroll-left 40s infinite linear;
+  }
+
+  @keyframes scroll-right {
+    from {translate: 0;}
+    to {translate: 100%;}
+  }
+
+    .infinate-scroll-right{
+    animation: scroll-right 40s infinite linear;
+  }
   
 }
 

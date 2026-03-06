@@ -4,15 +4,15 @@ import type { BookCover } from "../../Services/model/bookModel";
 function DisplayBooks(book: BookCover) {
 
   return (
-    <div id={book.uuid} className="group relative dark:bg-cardColor-dark bg-card-Color-white flex-shrink-0 pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3">
+    <div id={book.uuid} className="group  grow-0 shrink-0  relative dark:bg-cardColor-dark bg-card-Color-white  pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3">
 
       <h1>عدد المشاهدات {book.views}</h1>
 
-      <div className="topCover flex justify-between">
+      <div className="topCover grow-0 shrink-0 flex justify-between">
         <Rate defaultValue={book.book_rate} size="small" />
       </div>
 
-      <img className="w-70 rounded-[10px] mt-3" src={book.book_image} />
+      <img className="w-70 rounded-[10px] mt-3" src={book.book_image}  />
 
       <div className="mt-5">
         <h4>{book.book_name}</h4>
