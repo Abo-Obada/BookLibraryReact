@@ -1,15 +1,15 @@
 import { Carousel, Divider, Skeleton } from "antd";
 import DisplayBooks from "../components/ui/ShowBooks";
 import { carouselSwapper } from "../Services/api/books";
-import BookLayout from "../components/layouts/BooksLayout";
 import { useQuery } from "@tanstack/react-query";
 import { query } from "../Services/query/books";
-import { type BookCover } from "../Services/model/bookModel";
+import {type BookCoverResponse } from "../Services/model/bookModel";
 import Marquee from "react-fast-marquee";
+import BookLayout from "../components/layouts/BooksLayout";
 
 
 export default function Main() {
-  const { data, isPending } = useQuery<BookCover[]>({
+  const { data, isPending } = useQuery<BookCoverResponse>({
     queryKey: ['book-cover'], queryFn: query.server.bookCover.get,
     staleTime: 1000 * 60 * 5, // 5 minutes
   })
@@ -51,16 +51,18 @@ export default function Main() {
           <>
 
             <div dir="ltr">
-              <Marquee autoFill speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
-                {data?.map((n) => (
+               <Marquee autoFill speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
+                {data?.data.map(n=>(
                   <DisplayBooks key={n.uuid} {...n} />
                 ))}
               </Marquee>
+
+
             </div>
 
             <div dir="ltr" className="mt-10">
-              <Marquee direction="right" autoFill speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
-                {data?.map((n) => (
+               <Marquee autoFill direction="right" speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
+                {data?.data.map(n=>(
                   <DisplayBooks key={n.uuid} {...n} />
                 ))}
               </Marquee>
@@ -85,7 +87,7 @@ export default function Main() {
             ))}
           </div>) :
             (<BookLayout height={200} cols={5} scroll="horizontal">
-              {data && data.map((n) => (
+              {data && data.data.map((n) => (
                 <DisplayBooks
                   uuid={n.uuid}
                   views={n.views}

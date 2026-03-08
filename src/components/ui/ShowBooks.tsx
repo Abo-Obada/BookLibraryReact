@@ -4,11 +4,10 @@ import React from "react";
 
 function DisplayBooks(book: BookCover) {
   return (
-    <div
-      id={book.uuid}
-      className="group relative pb-5 dark:bg-cardColor-dark bg-card-Color-white pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3 h-150 max-h-200"
-    >
-      <h1>عدد المشاهدات {book.views}</h1>
+    
+  <div className="group relative pb-5 dark:bg-cardColor-dark bg-card-Color-white pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3 h-150 max-h-200">
+    <>
+          <h1>عدد المشاهدات {book.views}</h1>
 
       <div className="topCover grow-0 shrink-0 flex justify-between">
         <Rate disabled defaultValue={book.book_rate} />
@@ -32,7 +31,8 @@ function DisplayBooks(book: BookCover) {
           مراجعة
         </Button>
       </div>
-    </div>
+    </>
+  </div>  
   );
 }
 

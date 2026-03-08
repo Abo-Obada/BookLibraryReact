@@ -1,5 +1,5 @@
 export type BookCover = {
-    uuid: string;
+     uuid: string;
     book_name: string;
     book_image: string;
     book_rate: number;
@@ -7,4 +7,8 @@ export type BookCover = {
     created_at?: Date | string;
     book_description: string;
     views: number;
-};
+   };
+
+export type BookCoverResponse = {
+    data: BookCover[];
+}

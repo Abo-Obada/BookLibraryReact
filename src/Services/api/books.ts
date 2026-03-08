@@ -264,7 +264,7 @@ export const api = {
       axios.defaults.withXSRFToken = true;
       await axios.get(csrf);
       try {
-        const res = await axios.get(url + "bookcover");
+        const res = await axios.get(url + "bookcover?page=2");
         return res.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {
