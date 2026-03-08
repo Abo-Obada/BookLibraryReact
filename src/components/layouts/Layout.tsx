@@ -13,7 +13,7 @@ export default function Layout() {
             algorithm: myTheme?.theme == "dark" ? darkAlgorithm : defaultAlgorithm,
             token: { fontFamily: "GeneralArabicFont" }
         }}>
-            <div className="grid grid-cols-1 grid-rows-[auto_1fr_5rem] min-h-[100vh] ">
+            <div className="grid grid-cols-1 grid-rows-[auto_1fr_5rem] ">
                 <div className="box1">
                     <Header />
                 </div>
