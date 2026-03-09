@@ -1,21 +1,39 @@
-import { Divider } from "antd";
-import type { ReactNode } from "react";
+import { useContext } from "react";
+import { Link } from "react-router-dom";
+import { ThemeContext } from "../../contexts/ThemeContext";
+
 interface CategoryLayoutProps {
-  children: ReactNode;
   categoryName:string
+
 }
-export default function CategoryLayout({ children, categoryName }:CategoryLayoutProps) {
+
+export default function CategoryLayout({ categoryName }:CategoryLayoutProps) {
+  const theme = useContext(ThemeContext);
   return (
-    <div className="bookCategory bg-black/2 dark:bg-black/20 rounded-2xl">
-      <div className="title mt-2 ms-2">
-        <h1 className="text-[2rem] mt-2">{categoryName}</h1>
-      </div>
-      <Divider style={{ borderColor: localStorage.getItem("theme") == "dark" ? '#4e4e4e' : '', color: localStorage.getItem("theme") == "dark" ? 'white' : '' }} />
-      <div className="">
-        <li className="list-none">
-          {children}
-        </li>
-      </div>
-    </div>
-  );
+ <>
+    {
+      /** parent*/
+    }
+ <div className="border border-current/20 rounded-2xl text-2xl">
+  <div>
+    {
+      /**sub-parent */
+    }
+  <div className="m-3">
+    {
+      /** header*/
+    }
+  <div className="mb-10">
+    <h1>{categoryName}</h1>
+  </div>
+
+    <ol>
+    <li className={`${theme?.theme == "dark" ? "hover:bg-white hover:text-black" : "hover:bg-black hover:text-white"} w-110 transition-all` }><Link to={"/"}></Link></li>
+    </ol>
+  </div>
+  </div>
+</div>
+ </>
+   
+);
 }
