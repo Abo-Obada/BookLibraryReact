@@ -106,7 +106,7 @@ export default function Main() {
         </div>
        <div className="flex justify-center items-center">
         <div>{isFetchingNextPageBook ? "جارِ تحميل الكتب" : ""}</div>
-       <Link to={"/books"}>تصفح المزيد من الكتب</Link>
+       <Link  to={"/books"}>تصفح المزيد من الكتب</Link>
        </div>
       </div>
     </div>
