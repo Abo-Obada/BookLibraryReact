@@ -1,18 +1,19 @@
-import { Carousel, Divider, Skeleton } from "antd";
+import { Button, Carousel, Divider, Skeleton } from "antd";
 import DisplayBooks from "../components/ui/ShowBooks";
 import { carouselSwapper } from "../Services/api/books";
-import { useQuery } from "@tanstack/react-query";
-import { query } from "../Services/query/books";
-import {type BookCoverResponse } from "../Services/model/bookModel";
 import Marquee from "react-fast-marquee";
 import BookLayout from "../components/layouts/BooksLayout";
+import { query } from "../Services/query/books";
+import { Link } from "react-router-dom";
 
 
 export default function Main() {
-  const { data, isPending } = useQuery<BookCoverResponse>({
-    queryKey: ['book-cover'], queryFn: query.server.bookCover.get,
-    staleTime: 1000 * 60 * 5, // 5 minutes
-  })
+  const {data:dataBook,hasNextPage:hasNextPageBook, 
+    fetchNextPage:fetchNextPageBook,
+    isFetchingNextPage:isFetchingNextPageBook,
+    isPending:isPendingBook} = query.server.bookCover.getAll();
+
+  const {data:marqueeData, isPending:isPendingMarquee } = query.server.bookCover.get();
   return (
 
     <div className="grid grid-cols-1">
@@ -45,15 +46,17 @@ export default function Main() {
       </div>
 
       <div className="">
-        {isPending ? (
+        {isPendingMarquee ? (
           <Skeleton.Node style={{ width: "280px", height: "200px" }} active={true} />
         ) : (
           <>
 
             <div dir="ltr">
                <Marquee autoFill speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
-                {data?.data.map(n=>(
-                  <DisplayBooks key={n.uuid} {...n} />
+                {marqueeData?.pages.map(n=>(
+                  n.data.map(r=>(
+                    <DisplayBooks key={r.uuid} {...r} />
+                  ))
                 ))}
               </Marquee>
 
@@ -62,9 +65,13 @@ export default function Main() {
 
             <div dir="ltr" className="mt-10">
                <Marquee autoFill direction="right" speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
-                {data?.data.map(n=>(
-                  <DisplayBooks key={n.uuid} {...n} />
-                ))}
+                {
+                  marqueeData?.pages.map(n=>(
+                 n.data.map(r=>
+                   <DisplayBooks key={r.uuid} {...r} />
+                 )
+                ))
+                }
               </Marquee>
             </div>
           </>
@@ -81,26 +88,26 @@ export default function Main() {
       <div className="mt-10 grid  grid-cols-1 bg-card3-Color-white/20 dark:bg-card3-Color/20 p-10">
 
         <div className="flex justify-center scale-90">
-          {isPending ? (<div className="grid gap-4 grid-cols-3 text-3xl justify-center items-center">
+          {isPendingBook ? (<div className="grid gap-4 grid-cols-3 text-3xl justify-center items-center">
             {Array.from({ length: 12 }).map(n => (
               <Skeleton.Node style={{ width: "280px", height: "200px" }} active={true} />
             ))}
           </div>) :
-            (<BookLayout height={200} cols={5} scroll="horizontal">
-              {data && data.data.map((n) => (
-                <DisplayBooks
-                  uuid={n.uuid}
-                  views={n.views}
-                  book_rate={n.book_rate}
-                  book_name={n.book_name}
-                  book_description={n.book_description}
-                  book_image={n.book_image}
-                  book_page_number={n.book_page_number}
-                />
-              ))}
+            (
+            <BookLayout height={200} cols={5} scroll="horizontal">
+              {
+                  dataBook?.pages.map(n=>(
+                 n.data.map(r=>
+                   <DisplayBooks key={r.uuid} {...r} />
+                 )
+                ))
+                }
             </BookLayout>)}
         </div>
-
+       <div className="flex justify-center items-center">
+        <div>{isFetchingNextPageBook ? "جارِ تحميل الكتب" : ""}</div>
+       <Link to={"/books"}>تصفح المزيد من الكتب</Link>
+       </div>
       </div>
     </div>
   );

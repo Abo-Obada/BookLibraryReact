@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { BookCoverResponse } from "../model/bookModel";
 
 //This is API mimic folder for pretending that we have an Actual API but, we don't :D. 
 const url = "http://localhost:8000/api/";
@@ -259,12 +260,12 @@ export const comments = [
 
 export const api = {
   bookCover: {
-    get: async function get() {
+    get: async function get(page:string) {
       axios.defaults.withCredentials = true;
       axios.defaults.withXSRFToken = true;
       await axios.get(csrf);
       try {
-        const res = await axios.get(url + "bookcover?page=2");
+        const res = await axios.get(url + `bookcover?page=${page}`);
         return res.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {

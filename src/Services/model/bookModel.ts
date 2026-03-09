@@ -11,4 +11,6 @@ export type BookCover = {
 
 export type BookCoverResponse = {
     data: BookCover[];
+    current_page: number,
+    last_page: number
 }
