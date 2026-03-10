@@ -6,7 +6,6 @@ import BookPurchase, { type BtnColor } from "../components/layouts/BookPurchase"
 import { Button } from "antd";
 import CustomInput from "../components/ui/CustomInput";
 import CommentLayout from "../components/layouts/CommentLayout";
-import { book, book2, bookInfo, comments, recentBooks } from "../Services/api/books";
 import DisplayBooks from "../components/ui/ShowBooks";
 import VerticalLayout from "../components/layouts/VerticalDisplayLayout";
 

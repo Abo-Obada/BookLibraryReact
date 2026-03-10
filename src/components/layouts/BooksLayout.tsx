@@ -1,4 +1,4 @@
-import type { ReactNode } from "react"
+import { useRef, type ReactNode } from "react"
 type ScrollDirection = "vertical" | "horizontal";
 
 const scrollClasses: Record<ScrollDirection, string> = {
@@ -36,8 +36,9 @@ interface BookLayoutProps {
 } 
 
 export default function BookLayout({scroll,children,cols,height}:BookLayoutProps){
-    return(
-         <div className={`${heightRec[height]}  ${colRec[cols]} gap-5 ${scroll ? scrollClasses[scroll] : ""}  [&::-webkit-scrollbar]:hidden [scrollbar-width:none]`}>
+ 
+  return(
+ <div  className={`${heightRec[height]}  ${colRec[cols]} gap-5 ${scroll ? scrollClasses[scroll] : ""}  [&::-webkit-scrollbar]:hidden [scrollbar-width:none]`}>
          {children}
         </div>
     )

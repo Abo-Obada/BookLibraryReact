@@ -1,100 +1,7 @@
 import axios from "axios";
-import type { BookCoverResponse } from "../model/bookModel";
-
 //This is API mimic folder for pretending that we have an Actual API but, we don't :D. 
 const url = "http://localhost:8000/api/";
 const csrf = "http://localhost:8000/sanctum/csrf-cookie";
-export const recentBooks = [
-  {
-    bookName: "قوة عقلك الباطن",
-    bookAuthor: "جوزيف ميرفي",
-    views: 9999999999999,
-    rating: 5,
-    imageLink: "https://m.media-amazon.com/images/I/61PqMZ0L85L.jpg",
-    description: "كتاب يشرح كيفية استخدام العقل الباطن للتأثير على السلوك وتحقيق النجاح والسلام الداخلي."
-  },
-  {
-    bookName: "1984",
-    bookAuthor: "جورج أورويل",
-    views: 22115,
-    rating: 5,
-    imageLink: "https://covers.openlibrary.org/b/isbn/9780451524935-L.jpg",
-    description: "رواية ديستوبية تصور عالمًا شموليًا يسيطر فيه النظام على الفكر والحرية."
-  },
-  {
-    bookName: "الخيميائي",
-    bookAuthor: "باولو كويلو",
-    views: 845123,
-    rating: 4,
-    imageLink: "https://covers.openlibrary.org/b/isbn/9780062315007-L.jpg",
-    description: "رحلة رمزية عن الأحلام والمعنى الحقيقي للحياة والسعي وراء القدر."
-  },
-  {
-    bookName: "رجال في الشمس",
-    bookAuthor: "غسان كنفاني",
-    views: 334221,
-    rating: 5,
-    imageLink: "https://www.kutubna.ae/cdn/shop/files/OIP_2f93509f-9aaa-4fd0-af56-9085b64a321f.jpg?v=1731501170",
-    description: "رواية قصيرة تجسد معاناة اللاجئين الفلسطينيين بأسلوب رمزي قاسٍ."
-  },
-  {
-    bookName: "عائد إلى حيفا",
-    bookAuthor: "غسان كنفاني",
-    views: 298115,
-    rating: 5,
-    imageLink: "https://diwanegypt.com/wp-content/uploads/2025/03/9789779613048.jpg",
-    description: "قصة إنسانية عن الهوية والفقد والعودة بعد سنوات من الغياب."
-  },
-  {
-    bookName: "يوتوبيا",
-    bookAuthor: "أحمد خالد توفيق",
-    views: 388771,
-    rating: 4,
-    imageLink: "https://m.media-amazon.com/images/I/41omJqSEUYL._AC_UF1000,1000_QL80_.jpg",
-    description: "رواية سوداء تتنبأ بمستقبل منقسم طبقيًا بشكل مرعب."
-  },
-  {
-    bookName: "أرض زيكولا",
-    bookAuthor: "عمرو عبد الحميد",
-    views: 902114,
-    rating: 5,
-    imageLink: "https://upload.wikimedia.org/wikipedia/ar/0/00/%D8%BA%D9%84%D8%A7%D9%81_%D8%B1%D9%88%D8%A7%D9%8A%D8%A9_%D8%A3%D9%85%D8%A7%D8%B1%D9%8A%D8%AA%D8%A7.jpeg",
-    description: "فانتازيا عربية تدور في عالم تُقاس فيه قيمة الإنسان بالذكاء."
-  },
-  {
-    bookName: "الفيل الأزرق",
-    bookAuthor: "أحمد مراد",
-    views: 564252,
-    rating: 5,
-    imageLink: "https://online.fliphtml5.com/ktqzg/udma/files/large/1.webp?1568076316",
-    description: "رواية نفسية غامضة تمزج بين الطب النفسي والرعب."
-  },
-  {
-    bookName: "ذاكرة الجسد",
-    bookAuthor: "أحلام مستغانمي",
-    views: 510334,
-    rating: 5,
-    imageLink: "https://shaqhaf.com/storage/media/imgs/books/book16-06-2020-07-53-35.jpg",
-    description: "رواية رومانسية شاعرية عن الحب والذاكرة والوطن."
-  },
-  {
-    bookName: "قواعد العشق الأربعون",
-    bookAuthor: "إليف شافاق",
-    views: 912553,
-    rating: 4,
-    imageLink: "https://covers.openlibrary.org/b/isbn/9780241972939-L.jpg",
-    description: "رواية روحانية تربط بين التصوف والحب والتحول الداخلي."
-  }
-];
-export const bookCategory = [
-  { name: "دين" },
-  { name: "فلسفة" },
-  { name: "تاريخ" },
-  { name: "روايات" },
-  { name: "قصص أطفال" },
-  { name: "تفسير قرأن" },
-  { name: "أحاديث" },
-];
 export const carouselSwapper = [
   {
     title: "لا تنسوا أهل غزة من صالح الدعاء",
@@ -123,22 +30,8 @@ export const carouselSwapper = [
     backdropColor: "",
   },
 ];
-export const book = {
-  bookName: "قوة عقلك الباطن",
-  bookAuthor: "جوزيف ميرفي",
-  authorNationality: "إيرلاندي",
-  releaseDate: "غير معروف",
-  views: 242452,
-  rating: 5,
-  imageLink: "https://m.media-amazon.com/images/I/61PqMZ0L85L.jpg",
-};
-export const bookInfo = [
-  { label: "أمازون", value: book.bookName },
-  { label: "أسم الراوي", value: book.bookAuthor },
-  { label: "جنسية الراوي", value: book.authorNationality },
-  { label: "تاريخ إصدار الكتاب", value: book.releaseDate },
-  { label: "عدد المشاهدات", value: book.views },
-];
+
+
 export const book2 = [
   {
     title: "عن الرواية",
@@ -259,6 +152,7 @@ export const comments = [
 ];
 
 export const api = {
+  //get books only without categorization.
   bookCover: {
     get: async function get(page:string) {
       axios.defaults.withCredentials = true;
@@ -277,12 +171,13 @@ export const api = {
         throw error;
       }
     },
-    getCategorized: async function getCategorized(page:string) {
+    //get books with pagination and categorization.
+    getCategorized: async function getCategorized(page:string,category:string) {
       axios.defaults.withCredentials = true;
       axios.defaults.withXSRFToken = true;
       await axios.get(csrf);
       try {
-        const res = await axios.get(url + `bookcover?page=${page}`);
+        const res = await axios.get(url + `bookcategory?cq=${category}&page=${page}`);
         return res.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {

@@ -8,10 +8,6 @@ export type BookDesc = {
   description: string,
 }
 
-export type BookCategory = {
-  id: string | undefined,
-  categoryName?: string,
-  authorName?: string
-}
+
 
 

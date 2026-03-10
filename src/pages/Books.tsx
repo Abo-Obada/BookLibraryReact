@@ -1,12 +1,16 @@
 import Search from "antd/es/input/Search";
-import BookLayout from "../components/layouts/BooksLayout";
-import DisplayBooks from "../components/ui/ShowBooks";
-import { recentBooks } from "../Services/api/books";
+import { query as bookQuery } from "../Services/query/books";
+import { query as categoryQuery } from "../Services/query/category";
+import DisplayBooks from "../components/ui/ShowBooks"
 import CategoryLayout from "../components/layouts/CategoryLayout";
-
+import InfiniteScroll from "react-infinite-scroll-component";
+import Spin from "antd/es/spin";
 export default function Books() {
-  
-    return (
+  const {data:categoryData} = categoryQuery.server.category.get();
+  const {data:bookData , fetchNextPage, hasNextPage} = bookQuery.server.bookCover.getCategoryBook("تاريخ");
+  const books = bookData?.pages.flatMap(p => p.data) || [];
+
+  return (
         <div className="flex h-screen bg-white text-black dark:bg-[#0f0f13] dark:text-white overflow-hidden" dir="ltr">
 
             {/* Sidebar */}
@@ -20,7 +24,7 @@ export default function Books() {
                               font-semibold px-1 mb-1">
                     Categories
                 </p>
-                <CategoryLayout categoryName="حسب الراوي"/>
+                 <CategoryLayout categoryName="حسب الراوي" category={categoryData} key={'category-book'}/>
             </aside>
 
             {/* Main */}
@@ -30,7 +34,7 @@ export default function Books() {
                 <div className="flex items-center justify-between gap-4 flex-shrink-0">
 
                     <h1 className="text-2xl font-bold tracking-tight whitespace-nowrap">
-                        📚 Browse Books
+                        📚 تصفح الكتب
                     </h1>
 
                     <div className="w-full max-w-md">
@@ -47,24 +51,20 @@ export default function Books() {
                                 border-black/10 dark:border-white/10
                                 bg-gray-50 dark:bg-[#13131a] p-4">
 
-                    <BookLayout height="100%" cols={5} scroll="vertical">
-
-                        {recentBooks.map((n, index) => (
-                            <DisplayBooks
-                                key={index}
-                                id={index.toString()}
-                                bookAuthor={n.bookAuthor}
-                                bookName={n.bookName}
-                                description={n.description}
-                                imageLink={n.imageLink}
-                                rating={n.rating}
-                                views={n.views}
-                            />
-                        ))}
-                    </BookLayout>
-
+                 <div className="flex">
+                     <InfiniteScroll
+                     loader={<h4><Spin/></h4>}
+                     className="grid grid-cols-5 gap-5"
+                     dataLength={books.length}
+                     hasMore={!!hasNextPage}
+                     next={fetchNextPage}
+>                   
+                     {books.map((book) => (
+                       <DisplayBooks key={'books-menu'} {...book} />
+                     ))}
+                  </InfiniteScroll>
+                 </div>
                 </div>
-
             </main>
         </div>
     );
