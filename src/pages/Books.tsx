@@ -5,16 +5,17 @@ import DisplayBooks from "../components/ui/ShowBooks"
 import CategoryLayout from "../components/layouts/CategoryLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spin from "antd/es/spin";
+import { useState } from "react";
 export default function Books() {
+  const [categories, setCategories] = useState<string>("all");
   const {data:categoryData} = categoryQuery.server.category.get();
-  const {data:bookData , fetchNextPage, hasNextPage} = bookQuery.server.bookCover.getCategoryBook("تاريخ");
+  const {data:bookData , fetchNextPage, hasNextPage} = bookQuery.server.bookCover.getCategoryBook(categories);
   const books = bookData?.pages.flatMap(p => p.data) || [];
 
   return (
         <div className="flex h-screen bg-white text-black dark:bg-[#0f0f13] dark:text-white overflow-hidden" dir="ltr">
-
             {/* Sidebar */}
-            <aside dir="rtl" className="w-64 min-w-[220px] h-full border-r 
+            <aside dir="rtl" className="w-64 h-full border-r 
                               border-black/10 dark:border-white/10
                               bg-gray-100 dark:bg-[#13131a]
                               flex flex-col overflow-y-auto shrink-0 px-4 py-6 gap-4">
@@ -24,14 +25,14 @@ export default function Books() {
                               font-semibold px-1 mb-1">
                     Categories
                 </p>
-                 <CategoryLayout categoryName="حسب الراوي" category={categoryData} key={'category-book'}/>
+                 <CategoryLayout  categoryName="حسب الراوي" category={categoryData} onCategorySelect={setCategories} key={'category-book'}/>
             </aside>
 
             {/* Main */}
             <main className="flex-1 flex flex-col h-full overflow-hidden px-8 py-6 gap-6">
 
                 {/* Header */}
-                <div className="flex items-center justify-between gap-4 flex-shrink-0">
+                <div className="flex items-center justify-between gap-4">
 
                     <h1 className="text-2xl font-bold tracking-tight whitespace-nowrap">
                         📚 تصفح الكتب
@@ -57,8 +58,8 @@ export default function Books() {
                      className="grid grid-cols-5 gap-5"
                      dataLength={books.length}
                      hasMore={!!hasNextPage}
-                     next={fetchNextPage}
->                   
+                     next={fetchNextPage}> 
+                                       
                      {books.map((book) => (
                        <DisplayBooks key={'books-menu'} {...book} />
                      ))}

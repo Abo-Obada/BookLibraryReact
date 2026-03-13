@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import type { category } from "../../Services/model/categoriesModel";
 
 interface CategoryLayoutProps {
   categoryName:string
-  category:category[] | undefined
+  category:category[] | undefined,
+    onCategorySelect: (category: string) => void;
 }
-
-export default function CategoryLayout({ categoryName,category }:CategoryLayoutProps) {
+export default function CategoryLayout({ categoryName,category, onCategorySelect }:CategoryLayoutProps) {
   const theme = useContext(ThemeContext);
   return (
  <>
@@ -28,9 +28,14 @@ export default function CategoryLayout({ categoryName,category }:CategoryLayoutP
   </div>
 
     <ol>
-        {category?.map(n=>(
-          <li className="mt-2">{n.category_name}</li>
-        ))}
+        {category?.map(n => (
+                <li className="mt-2">
+                  <button onClick={() => onCategorySelect(n.category_name)}>
+                    {n.category_name}
+                  </button>
+                </li>
+              ))}
+
     </ol>
   </div>
   </div>
