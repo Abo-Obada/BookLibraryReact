@@ -28,14 +28,17 @@ export default function CategoryLayout({ categoryName,category, onCategorySelect
   </div>
 
     <ol>
+      <li>
+         <button onClick={() => onCategorySelect("all")}>الكل</button>
+      </li>
         {category?.map(n => (
                 <li className="mt-2">
+                 
                   <button onClick={() => onCategorySelect(n.category_name)}>
                     {n.category_name}
                   </button>
                 </li>
               ))}
-
     </ol>
   </div>
   </div>

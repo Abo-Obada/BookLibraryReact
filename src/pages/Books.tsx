@@ -9,7 +9,7 @@ import { useState } from "react";
 export default function Books() {
   const [categories, setCategories] = useState<string>("all");
   const {data:categoryData} = categoryQuery.server.category.get();
-  const {data:bookData , fetchNextPage, hasNextPage} = bookQuery.server.bookCover.getCategoryBook(categories);
+  const {data:bookData , fetchNextPage, hasNextPage, isPending} = bookQuery.server.bookCover.getCategoryBook(categories);
   const books = bookData?.pages.flatMap(p => p.data) || [];
 
   return (
@@ -60,9 +60,9 @@ export default function Books() {
                      hasMore={!!hasNextPage}
                      next={fetchNextPage}> 
                                        
-                     {books.map((book) => (
-                       <DisplayBooks key={'books-menu'} {...book} />
-                     ))}
+                     {!isPending ? books.length == 0 ? <h1>المحتوى غير متوفر</h1> : books.map((book) => (
+                       <DisplayBooks key={'books-menu'} {...book}  />
+                     )) : <h1>جار التحميل <Spin/></h1>}              
                   </InfiniteScroll>
                  </div>
                 </div>
