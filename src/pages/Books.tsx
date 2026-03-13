@@ -52,7 +52,7 @@ export default function Books() {
                                 bg-gray-50 dark:bg-[#13131a] p-4">
 
                  <div className="flex">
-                     <InfiniteScroll
+                     <InfiniteScroll 
                      loader={<h4><Spin/></h4>}
                      className="grid grid-cols-5 gap-5"
                      dataLength={books.length}
