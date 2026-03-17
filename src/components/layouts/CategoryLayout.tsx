@@ -1,13 +1,15 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import type { category } from "../../Services/model/categoriesModel";
+import type { SetURLSearchParams } from "react-router-dom";
 
 interface CategoryLayoutProps {
   categoryName:string
   category:category[] | undefined,
-    onCategorySelect: (category: string) => void;
+    onCategorySelect: (category: string) => void,
+    searchPrm : SetURLSearchParams
 }
-export default function CategoryLayout({ categoryName,category, onCategorySelect }:CategoryLayoutProps) {
+export default function CategoryLayout({ categoryName,category, onCategorySelect, searchPrm }:CategoryLayoutProps) {
   const theme = useContext(ThemeContext);
   return (
  <>
@@ -29,12 +31,18 @@ export default function CategoryLayout({ categoryName,category, onCategorySelect
 
     <ol>
       <li>
-         <button onClick={() => onCategorySelect("all")}>الكل</button>
+         <button onClick={() => {
+          onCategorySelect("all")
+          searchPrm({cq : "all"})
+         }}>الكل</button>
       </li>
         {category?.map(n => (
                 <li className="mt-2">
                  
-                  <button onClick={() => onCategorySelect(n.category_name)}>
+                  <button onClick={() => {
+                    onCategorySelect(n.category_name);
+                    searchPrm({cq : n.uuid});
+                  }} >
                     {n.category_name}
                   </button>
                 </li>

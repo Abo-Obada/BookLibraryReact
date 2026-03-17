@@ -6,12 +6,19 @@ import CategoryLayout from "../components/layouts/CategoryLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spin from "antd/es/spin";
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 export default function Books() {
-  const [categories, setCategories] = useState<string>("all");
+
+  const [SearchParam, setSearchParam] = useSearchParams();
+
+  const query = SearchParam.get('cq');
+  const page = SearchParam.get('page');
+  const [categories, setCategories] = useState<string>(query !== null ? query : "all");
   const {data:categoryData} = categoryQuery.server.category.get();
   const {data:bookData , fetchNextPage, hasNextPage, isPending} = bookQuery.server.bookCover.getCategoryBook(categories);
   const books = bookData?.pages.flatMap(p => p.data) || [];
-
+  if(query){
+  }
   return (
         <div className="flex h-screen bg-white text-black dark:bg-[#0f0f13] dark:text-white overflow-hidden" dir="ltr">
             {/* Sidebar */}
@@ -25,7 +32,7 @@ export default function Books() {
                               font-semibold px-1 mb-1">
                     Categories
                 </p>
-                 <CategoryLayout  categoryName="حسب الراوي" category={categoryData} onCategorySelect={setCategories} key={'category-book'}/>
+                 <CategoryLayout categoryName="حسب الراوي" category={categoryData} onCategorySelect={setCategories} searchPrm={setSearchParam} key={'category-book'}/>
             </aside>
 
             {/* Main */}
