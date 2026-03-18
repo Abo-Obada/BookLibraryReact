@@ -8,8 +8,9 @@ interface CategoryLayoutProps {
   category:category[] | undefined,
     onCategorySelect: (category: string) => void,
     searchPrm : SetURLSearchParams
+    currentCategory: string | null
 }
-export default function CategoryLayout({ categoryName,category, onCategorySelect, searchPrm }:CategoryLayoutProps) {
+export default function CategoryLayout({ categoryName,category, onCategorySelect, searchPrm, currentCategory }:CategoryLayoutProps) {
   const theme = useContext(ThemeContext);
   return (
  <>
@@ -30,16 +31,24 @@ export default function CategoryLayout({ categoryName,category, onCategorySelect
   </div>
 
     <ol>
-      <li>
-         <button onClick={() => {
+      <li className="mt-2
+  transition-all duration-1500
+
+  hover:bg-blue-300 rounded-2xl p-2
+  hover:duration-0 ">
+         <button className={currentCategory == "all" ? "bg-blue-300 p-2 rounded-2xl" : undefined} onClick={() => {
           onCategorySelect("all")
           searchPrm({cq : "all"})
          }}>الكل</button>
       </li>
         {category?.map(n => (
-                <li className="mt-2">
+                <li className="mt-2
+  transition-all duration-1500
+
+  hover:bg-blue-300 rounded-2xl p-2
+  hover:duration-0  ">
                  
-                  <button onClick={() => {
+                  <button className={currentCategory == n.uuid ? "bg-blue-300 p-2 rounded-2xl" : undefined } onClick={() => {
                     onCategorySelect(n.category_name);
                     searchPrm({cq : n.uuid});
                   }} >

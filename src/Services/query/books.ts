@@ -43,8 +43,7 @@ export const query = {
         queryFn: ({ pageParam }) => api.bookCover.getCategorized(String(pageParam), category),
         getNextPageParam: (lastPage) => {
             if (lastPage.current_page < lastPage.last_page) {
-                console.log(lastPage.current_page);
-                return lastPage.current_page + 1;
+                    return lastPage.current_page + 1;
             }
             return undefined;
         }
