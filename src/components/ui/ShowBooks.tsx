@@ -4,7 +4,6 @@ import React from "react";
 
 function DisplayBooks(book: BookCover) {
   return (
-    
   <div className="group relative pb-5 dark:bg-cardColor-dark bg-card-Color-white pe-10 ps-10 pt-5 rounded-2xl me-5 ms-1 transition-transform duration-300 ease-out hover:-translate-y-3 h-150 max-h-200">
     <>
           <h1>عدد المشاهدات {book.views}</h1>
@@ -22,7 +21,7 @@ function DisplayBooks(book: BookCover) {
 
       <div className="mt-5">
         <h4>أسم الكتاب: {book.book_name}</h4>
-        <h5>المؤلف: N/A</h5>
+        <h5>المؤلف: {book.author_name}</h5>
       </div>
 
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 rounded-3xl">

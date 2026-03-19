@@ -7,6 +7,7 @@ export type BookCover = {
     created_at?: Date | string;
     book_description: string;
     views: number;
+    author_name: "string";
    };
 
 export type BookCoverResponse = {

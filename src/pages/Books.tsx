@@ -1,6 +1,7 @@
 import Search from "antd/es/input/Search";
 import { query as bookQuery } from "../Services/query/books";
 import { query as categoryQuery } from "../Services/query/category";
+import {query as authorQuery} from "../Services/query/author";
 import DisplayBooks from "../components/ui/ShowBooks"
 import CategoryLayout from "../components/layouts/CategoryLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -14,8 +15,10 @@ export default function Books() {
   const query = SearchParam.get('cq');
   const [categories, setCategories] = useState<string>(query !== null ? query : "all");
   const {data:categoryData} = categoryQuery.server.category.get();
+  const {data:authorData} = authorQuery.server.author.get();
   const {data:bookData , fetchNextPage, hasNextPage, isPending} = bookQuery.server.bookCover.getCategoryBook(categories);
   const books = bookData?.pages.flatMap(p => p.data) || [];
+  
   if(query){
   }
   return (
@@ -32,8 +35,11 @@ export default function Books() {
                               font-semibold px-1 mb-1">
                     Categories
                 </p>
-                 <CategoryLayout categoryName="حسب الراوي" category={categoryData}  onCategorySelect={setCategories} currentCategory={query} searchPrm={setSearchParam} key={'category-book'}/>
+                 <CategoryLayout categoryName="حسب التصنيف" category={categoryData}  onCategorySelect={setCategories} currentCategory={query} searchPrm={setSearchParam} key={'category-book'}/>
+                 <CategoryLayout categoryName="حسب الراوي" categoryAuthor={authorData}  onCategorySelect={setCategories} currentCategory={query} searchPrm={setSearchParam} key={'category-book'}/>
             </aside>
+
+            
 
             {/* Main */}
                                 {/* <h1 className="text-amber-800 text-8xl">{categories}</h1> */}
