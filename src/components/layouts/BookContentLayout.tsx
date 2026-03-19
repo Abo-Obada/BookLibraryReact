@@ -1,20 +1,21 @@
+import type { BookCover } from "../../Services/model/bookModel"
+
  interface bookContent{
     title:string,
     value:string
 }
 
-export default function BookContentLayout(children:{bookData: bookContent[]}){
+export default function BookContentLayout(children:{bookData: BookCover}){
     return(
       
         <>
-               {children && children.bookData.map((n,index)=>(
+               
                 
-                <div key={index} className="mt-10">
-                    <h1 className="text-[2.0rem]">{n.title}</h1>
-                    <p className="text-[1.1rem]">{n.value}</p>
+                <div key={children.bookData.uuid} className="mt-10">
+                    
                 </div>
 
-               ))}
+
 </>
           
     )
