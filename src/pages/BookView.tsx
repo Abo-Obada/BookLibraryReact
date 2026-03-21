@@ -4,6 +4,10 @@ import BookContentLayout from "../components/layouts/BookContentLayout";
 import BookPurchase, { type BtnColor } from "../components/layouts/BookPurchase";
 import { Button } from "antd";
 import CustomInput from "../components/ui/CustomInput";
+import { query } from "../Services/query/books";
+import { useParams } from "react-router-dom";
+import CardLayout from "../components/layouts/CardLayout";
+
 
 
 const puchase = [{label:"amazon",color:"blue" as BtnColor,link:"#"}]
@@ -11,17 +15,20 @@ const puchase = [{label:"amazon",color:"blue" as BtnColor,link:"#"}]
 export default function BookView() {
   const theme = useContext(ThemeContext);
     const isDark = theme?.theme === "dark";
-    const [data:dataLabel] = query
+    const {uuid} = useParams();
+    const {data:dataLabel} = query.server.bookContent.get(uuid);
     return (
     <div className="grid justify-center grid-cols-[70rem_23rem] m-20">
+      
       <div className="box1 me-20">
-        { <BookContentLayout bookData={book2} /> }
+        
+        { <BookContentLayout content={dataLabel?.get_book_content} /> }
       </div>
 
       
       <div className="box2">
         <section>
-          {/* <CardLayout rating={book.rating} bookInfo={bookInfo} image={book.imageLink} title="معلومات سريعة عن الكتاب" /> */}
+           <CardLayout  book={dataLabel} title="عن الكتاب" /> 
          <BookPurchase pro={puchase} />
         </section>
       </div>

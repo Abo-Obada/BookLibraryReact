@@ -1,6 +1,7 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { api } from "../api/books";
-import type { BookCoverResponse } from "../model/bookModel";
+import type { BookContentResponse, BookCoverResponse } from "../model/bookModel";
+import type { Params } from "react-router-dom";
 
 export const query = {
 
@@ -49,7 +50,15 @@ export const query = {
         }
     });
 }
-
-    }
+    },
+   bookContent: {
+    get: (uuid:string | undefined) => {
+                return useQuery<BookContentResponse>({
+                    queryKey: ['book-content',uuid],
+                    staleTime: 1000 * 60 * 5,
+                    queryFn: () => api.bookContent.get(uuid), 
+                });
+            }
+   }
 }
 }

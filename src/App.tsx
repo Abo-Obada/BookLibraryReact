@@ -11,7 +11,7 @@ const router = createBrowserRouter([{
  children: [{path: "/", element:<Main/>}, 
             {path:"about",element:<About/>},
           {path:"books",element:<Books/>},
-        {path:"books/show",element:<BookView/>}],
+        {path:"books/show/:uuid",element:<BookView/>}],
 }]);
 //  <RouterProvider router={router}/>
 function App() {
