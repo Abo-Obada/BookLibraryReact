@@ -1,22 +1,16 @@
 import { LikeOutlined } from "@ant-design/icons";
-import { Avatar, Dropdown, Rate } from "antd";
+import { Avatar, Dropdown, Empty, Rate } from "antd";
 import type { ReactNode } from "react";
+import type { CommentResponse } from "../../Services/model/commentModel";
 
 
-type Users = {
-  id: string | number,
-  username: string,
-  comment: string,
-  rating: undefined | number,
-  date: string,
-  like: string
-  profileImage: string
-}
 type CommentProps = {
-  users: Users[],
+  comment: CommentResponse[] | undefined,
   children: ReactNode
 }
-export default function CommentLayout({ users, children }: CommentProps) {
+
+
+export default function CommentLayout({ comment, children }: CommentProps) {
   return (
     <>
       {//**entire Parent */ 
@@ -28,7 +22,7 @@ export default function CommentLayout({ users, children }: CommentProps) {
         <div className="topContentContainer  border-b m-5 ">
           <div className="topContentBox flex justify-center  items-start  gap-2">
             <h1>التعليقات</h1>
-            <span className="rounded-[10rem] pe-2 ps-2 bg-amber-800">{users.length}</span>
+            <span className="rounded-[10rem] pe-2 ps-2 bg-amber-800">{comment &&  comment[0]?.data.length != 0 ? comment[0]?.data.length : 0}</span>
 
           </div>
 
@@ -46,9 +40,13 @@ export default function CommentLayout({ users, children }: CommentProps) {
             {
               //**comment */ 
             }
+            
+            { comment &&  comment[0]?.data.length != 0 ?  comment.map(z => (
+             
 
-            {users.map(n => (
-              <div className="card border border-current/20 mt-4 rounded">
+             
+             z && z.data.map(n=>(
+                <div className="card border border-current/20 mt-4 rounded">
                 {
                   //**Top Card */
                 }
@@ -56,9 +54,9 @@ export default function CommentLayout({ users, children }: CommentProps) {
                   {//**Right side */ 
                   }
                   <div className="flex align-baseline items-center gap-2 ms-2">
-                    <Avatar src={n.profileImage} size={50} />
-                    <h1>{n.username}</h1>
-                    <span className="ms-2 text-current/50">{n.date}</span>
+                    <Avatar  size={50} />
+                    <h1>{n.comment_owner != undefined ? n.comment_owner.name :"N/A" }</h1>
+                    <span className="ms-2 text-current/50">{n.updated_at}</span>
                   </div>
 
                   {//**Right side */ 
@@ -67,8 +65,8 @@ export default function CommentLayout({ users, children }: CommentProps) {
                     <div className="self-end mb-3 me-5">
                       <Dropdown menu={{
                         items: [
-                          { key: `${n.id}-edit`, label: "Edit" },
-                          { key: `${n.id}-delete`, label: "Delete" }
+                          { key: `${n.uuid}-edit`, label: "Edit" },
+                          { key: `${n.uuid}-delete`, label: "Delete" }
                         ],
                         onClick: ({ key }) => {
                           if (key.endsWith("edit")) {
@@ -80,7 +78,7 @@ export default function CommentLayout({ users, children }: CommentProps) {
                         ...
                       </Dropdown>
                     </div>
-                    <div className="me-2"><Rate size="small" defaultValue={n.rating == undefined ? 0 : n.rating} /></div>
+                    <div className="me-2"><Rate size="small" value={n.rate == undefined ? 0 : Number(n.rate)} /></div>
                   </div>
 
                 </div>
@@ -89,14 +87,25 @@ export default function CommentLayout({ users, children }: CommentProps) {
                     <p>{n.comment}</p>
                   </div>
                   <div>
-                    <LikeOutlined /> <span>{n.like}</span>
+                    {//likes count
+                    //
+                    }
+
+                    
+                    <LikeOutlined /> <span>{n.get_reaction_count_per_comment?.map(t=>{
+                     const like = n.get_reaction_count_per_comment?.filter(g=>g.reaction == "1").length;
+                      return (
+                        like
+                      )
+                    })}</span>
                   </div>
                 </div>
 
               </div>
+              ))
 
 
-            ))}
+            )) : <Empty description={"لا يوجد تعليقات"}/>}
           </div>
           {
             //**Input */ 

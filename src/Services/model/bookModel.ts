@@ -1,5 +1,6 @@
 export type BookCover = {
-    uuid: string;
+    book_uuid:string;
+    book_cover_uuid: string;
     book_name: string;
     book_image: string;
     book_rate: number;

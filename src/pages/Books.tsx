@@ -18,7 +18,7 @@ export default function Books() {
   const {data:authorData} = authorQuery.server.author.get();
   const {data:bookData , fetchNextPage, hasNextPage, isPending} = bookQuery.server.bookCover.getCategoryBook(categories);
   const books = bookData?.pages.flatMap(p => p.data) || [];
-  
+    
   if(query){
   }
   return (
@@ -76,7 +76,7 @@ export default function Books() {
                      next={fetchNextPage}> 
                                        
                      {!isPending ? books.length == 0 ? <h1>المحتوى غير متوفر</h1> : books.map((book) => (
-                       <DisplayBooks key={book.uuid} {...book}  />
+                       <DisplayBooks key={book.book_cover_uuid} {...book}  />
                      )) : <h1>جار التحميل <Spin/></h1>}              
                   </InfiniteScroll>
                  </div>
