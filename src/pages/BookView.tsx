@@ -52,15 +52,15 @@ export default function BookView() {
         <h1 className="text-[1.7rem]">كتب قد تعجبك</h1>
          <InfiniteScroll
          scrollThreshold={1}
-                             loader={<h4><Spin/></h4>}
-                             className="grid grid-cols-5 gap-5"
-                             dataLength={1}
-                             hasMore={!!hasNextPage}
-                             next={fetchNextPage}> 
-                                               
-                             {!isPending ? books.length == 0 ? <h1>المحتوى غير متوفر</h1> : books.map((book) => (
-                               <DisplayBooks key={book.book_cover_uuid} {...book}  />
-                             )) : <h1>جار التحميل <Spin/></h1>}              
+          loader={<h4><Spin/></h4>}
+          className="grid grid-cols-5 gap-5"
+          dataLength={1}
+          hasMore={!!hasNextPage}
+          next={fetchNextPage}> 
+                            
+          {!isPending ? books.length == 0 ? <h1>المحتوى غير متوفر</h1> : books.map((book) => (
+            <DisplayBooks key={book.book_cover_uuid} {...book}  />
+          )) : <h1>جار التحميل <Spin/></h1>}              
          </InfiniteScroll>
       </div>
     </section>
