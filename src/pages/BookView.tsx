@@ -8,7 +8,7 @@ import CardLayout from "../components/layouts/CardLayout";
 import CommentLayout from "../components/layouts/CommentLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import DisplayBooks from "../components/ui/ShowBooks"
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { authContext } from "../contexts/AuthContext";
 import TextArea from "antd/es/input/TextArea";
 import { useQueryClient } from "@tanstack/react-query";
@@ -26,15 +26,18 @@ export default function BookView() {
     const [count, setCount] = useState<number>(0);
     const invalidateComment = useQueryClient();
     //mutation + states 
-    const [comment,  setComment ] = useState<string | undefined>(undefined);
-    const [rate, setRate] = useState<number>(5);
-    const { mutate, isSuccess, isError} = commentQuery.server.comment.post({uuid: uuid,  comment: comment, rate:rate})
+    const rate = useRef(0);
+    const comment = useRef("");
+    const { mutate, isSuccess, isError} = commentQuery.server.comment.post()
       const [messageApi, contextHolder] = message.useMessage();
     const onSubmit = () =>{
-      mutate();
-      invalidateComment.invalidateQueries({queryKey:['comments']});
-      isSuccess ? messageApi.success("تم تعليق بنجاح") : "";
-       isError ? messageApi.error("حدث خطب ما عند التعليق") : "";
+     mutate({uuid:uuid, comment: comment.current, rate:rate.current},
+      {onSuccess: () =>{
+        invalidateComment.invalidateQueries({queryKey:['comments']});
+         messageApi.success("تم تعليق بنجاح");
+     },onError:()=>{
+      messageApi.error("حدث خطب ما عند التعليق");
+     }})
     }
 
     return (
@@ -64,11 +67,11 @@ export default function BookView() {
         {me?.errorCode === 401 ? <div>يجب التسجيل الدخول أولا ويمكنك بعدها التعليق</div> : 
         <div className="">
           <div>
-             <Rate defaultValue={5} size="small" onChange={(e)=> setRate(e)}/>
+             <Rate defaultValue={5} size="small" onChange={(e)=> rate.current = e}/>
           </div>
          <div className="mt-2 mb-2 flex flex-col items-end">
           <TextArea onChange={(e) => { setCount(e.target.value.length);
-            setComment(e.target.value);
+            comment.current = e.target.value;
           }} placeholder="علق هنا" cols={100} rows={10} maxLength={225}/>
           <span className="mt-2 text-current/50">{count}/225</span>
           

@@ -23,22 +23,27 @@ export default function CommentLayout({ comment, children, hasNext, fetchNext }:
   // Total count across ALL pages
   const totalCount = comment?.[0]?.total ?? 0;
  const totalCount2 = comment?.[comment.length - 1]?.to ?? 0;
- const [reaction, setReaction] = useState<string>("");
- const [uuid, setUuid] = useState<string>("");
-const {mutate, isPending, isSuccess, isError} = query.server.reaction.update({uuid: uuid, reaction: reaction})
- const invalidateComment = useQueryClient();
-    invalidateComment.invalidateQueries({queryKey:['comments']});
+const {mutate} = query.server.reaction.update();
+ const queryClient  = useQueryClient();
   const [messageApi, contextHolder] = message.useMessage();
-    const submit = (data:string, uuid:string) => {
-if(data){
-  
-  setReaction(data)
-  setUuid(uuid)
-  mutate();
 
-  console.log("Access granted" + isSuccess);
-}
-}
+const submit = (data: string, uuid: string) => {
+  if (!data) return;
+
+  mutate(
+    { uuid: uuid, reaction: data }, // ✅ use data directly, not state
+    {
+      onSuccess: () => {
+        messageApi.success("تم بنجاح");
+        queryClient.invalidateQueries({ queryKey: ['comments'] }); // ✅ only on success
+      },
+      onError: () => {
+        messageApi.error("حدث خطب ما");
+      }
+    }
+  );
+};
+
 
   return (
     <>
@@ -81,22 +86,7 @@ if(data){
                           </div>
                           <div className="flex flex-col">
                             <div className="self-end mb-3 me-5">
-                              <Dropdown
-                                menu={{
-                                  items: [
-                                    { key: `${n.uuid}-edit`, label: "Edit" },
-                                    { key: `${n.uuid}-delete`, label: "Delete" },
-                                  ],
-                                  onClick: ({ key }) => {
-                                    if (key.endsWith("edit")) { }
-                                    if (key.endsWith("delete")) { }
-                                  },
-                                }}
-                                placement="top"
-                                className="bg-amber-700"
-                              >
-                                ...
-                              </Dropdown>
+                            
                             </div>
                             <div className="me-2">
                               <Rate size="small" value={Number(n.rate) || 0} />
@@ -113,13 +103,13 @@ const userReaction = n.get_reaction_count_per_comment?.find(
                             return (
                               <div className="flex ">
                             <div>
-
-                            
                              
                               <div className="me-2">
+
                               {userReaction == "1" ?  <LikeFilled onClick={() => {
                               userReaction == "1" ? submit("-1",n.uuid) : submit("1",n.uuid);
-                            }} /> :  <LikeOutlined onClick={() => {
+                            }} /> 
+                            :  <LikeOutlined onClick={() => {
                               submit("1",n.uuid);
                             }} />}
 

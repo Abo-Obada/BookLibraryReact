@@ -1,5 +1,6 @@
 import axios from "axios";
 import type { ReactionPost } from "../model/reactionModel";
+import type { CommentPost } from "../model/commentModel";
 
 
 const url = "http://localhost:8000/api/";

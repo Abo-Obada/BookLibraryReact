@@ -20,8 +20,8 @@ export const query = {
                 }
             });
         },
-        post: ( comment:CommentPost) => {
-          return useMutation({mutationFn: () => api.comments.post(comment)});
+        post: () => {
+          return useMutation({mutationFn: (comment:CommentPost) => api.comments.post(comment)});
         }
     },
 }

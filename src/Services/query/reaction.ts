@@ -7,8 +7,8 @@ export const query = {
 
     server: {
     reaction: {
-        update: ( comment:ReactionPost) => {
-          return useMutation({mutationFn: () => api.reactions.update(comment)});
+        update: () => {
+          return useMutation({mutationFn: (comment:ReactionPost) => api.reactions.update(comment)});
         }
     },
 }
