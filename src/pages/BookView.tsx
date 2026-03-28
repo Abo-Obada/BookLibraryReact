@@ -1,7 +1,6 @@
 import BookContentLayout from "../components/layouts/BookContentLayout";
 import BookPurchase, { type BtnColor } from "../components/layouts/BookPurchase";
-import { Button, Divider, Skeleton, Spin } from "antd";
-import CustomInput from "../components/ui/CustomInput";
+import { Alert, Button,message, Rate, Skeleton, Spin } from "antd";
 import { query as bookQuery} from "../Services/query/books";
 import { query as commentQuery } from "../Services/query/comment";
 import { useParams } from "react-router-dom";
@@ -9,6 +8,10 @@ import CardLayout from "../components/layouts/CardLayout";
 import CommentLayout from "../components/layouts/CommentLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import DisplayBooks from "../components/ui/ShowBooks"
+import { useContext, useState } from "react";
+import { authContext } from "../contexts/AuthContext";
+import TextArea from "antd/es/input/TextArea";
+import { useQueryClient } from "@tanstack/react-query";
 
 
 const puchase = [{label:"amazon",color:"blue" as BtnColor,link:"#"}]
@@ -16,13 +19,29 @@ const puchase = [{label:"amazon",color:"blue" as BtnColor,link:"#"}]
 export default function BookView() {
     const {uuid} = useParams();
     const {data:dataLabel, isPending:isPendingLabel} = bookQuery.server.bookContent.get(uuid);
-    const {data:dataComment, isPending:isPendingComment} = commentQuery.server.comment.get(uuid);
+    const {data:dataComment, hasNextPage:NextPageComment, hasPreviousPage:hasPreviousPageComment, fetchNextPage:fetchNextPageComment} = commentQuery.server.comment.get(uuid);
     const {data:bookData , fetchNextPage, hasNextPage, isPending} = bookQuery.server.bookCover.getCategoryBook("all");
-      const books = bookData?.pages.flatMap(p => p.data) || [];
+    const books = bookData?.pages.flatMap(p => p.data) || [];
+    const me = useContext(authContext);
+    const [count, setCount] = useState<number>(0);
+    const invalidateComment = useQueryClient();
+    //mutation + states 
+    const [comment,  setComment ] = useState<string | undefined>(undefined);
+    const [rate, setRate] = useState<number>(5);
+    const { mutate, isSuccess, isError} = commentQuery.server.comment.post({uuid: uuid,  comment: comment, rate:rate})
+      const [messageApi, contextHolder] = message.useMessage();
+    const onSubmit = () =>{
+      mutate();
+      invalidateComment.invalidateQueries({queryKey:['comments']});
+      isSuccess ? messageApi.success("تم تعليق بنجاح") : "";
+       isError ? messageApi.error("حدث خطب ما عند التعليق") : "";
+    }
 
     return (
-    <div className="grid justify-center grid-cols-[70rem_23rem] m-20">
-      
+     <>
+     {contextHolder}
+      <div className="grid justify-center grid-cols-[70rem_23rem] m-20">
+     
       <div className="box1 me-20">
         {isPendingLabel ?  <Skeleton/> : <BookContentLayout content={dataLabel?.get_book_content} />}
       </div>
@@ -33,16 +52,39 @@ export default function BookView() {
            {isPendingLabel ? <Skeleton/> : <>
            <CardLayout  book={dataLabel} title="عن الكتاب" /> 
            <BookPurchase pro={puchase} />
+          
            </>}
         </section>
       </div>
-
+      
       <div className="box3">
      <section>
-      {isPendingComment ? <Skeleton/> : <CommentLayout comment={dataComment?.pages}>
-        <CustomInput props={{height:"h-auto",placeholder:"علق ولا يهمك :)",type:"text",width:"w-100"}}/>
-        <Button variant="solid" color="primary" >إرسال</Button>
-      </CommentLayout> }
+      {isPendingLabel ? <Skeleton/> : <CommentLayout fetchNext={fetchNextPageComment} comment={dataComment?.pages} hasNext={NextPageComment} hasPrevious={hasPreviousPageComment}>
+       {me?.isLoading ? <Skeleton/> : <>
+        {me?.errorCode === 401 ? <div>يجب التسجيل الدخول أولا ويمكنك بعدها التعليق</div> : 
+        <div className="">
+          <div>
+             <Rate defaultValue={5} size="small" onChange={(e)=> setRate(e)}/>
+          </div>
+         <div className="mt-2 mb-2 flex flex-col items-end">
+          <TextArea onChange={(e) => { setCount(e.target.value.length);
+            setComment(e.target.value);
+          }} placeholder="علق هنا" cols={100} rows={10} maxLength={225}/>
+          <span className="mt-2 text-current/50">{count}/225</span>
+          
+         </div>
+         <div>
+            <Button  onClick={()=> onSubmit()} variant="solid" color="primary" >تعليق</Button>
+          </div>
+          
+          <div className="mt-2">
+         </div>         
+        
+        </div>
+        }
+       </>}
+      </CommentLayout> 
+      }
        
      </section>
 
@@ -60,12 +102,14 @@ export default function BookView() {
                             
           {!isPending ? books.length == 0 ? <h1>المحتوى غير متوفر</h1> : books.map((book) => (
             <DisplayBooks key={book.book_cover_uuid} {...book}  />
-          )) : <h1>جار التحميل <Spin/></h1>}              
+          )) : <h1>جار التحميل <Spin/></h1>}
          </InfiniteScroll>
       </div>
     </section>
       </div>
       
     </div>
+     </> 
+   
   )
 }

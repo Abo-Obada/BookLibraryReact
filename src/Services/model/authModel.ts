@@ -15,4 +15,5 @@ export type LoginResponse = {
 export type Me = {
     username: string,
     email: string
+    uuid: string
 }

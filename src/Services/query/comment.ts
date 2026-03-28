@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation } from "@tanstack/react-query";
 import { api } from "../api/comments";
-import type { CommentResponse } from "../model/commentModel";
+import type { CommentPost, CommentResponse } from "../model/commentModel";
 
 export const query = {
 
@@ -20,6 +20,9 @@ export const query = {
                 }
             });
         },
+        post: ( comment:CommentPost) => {
+          return useMutation({mutationFn: () => api.comments.post(comment)});
+        }
     },
 }
 }
