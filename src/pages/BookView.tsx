@@ -54,7 +54,6 @@ export default function BookView() {
         <section>
            {isPendingLabel ? <Skeleton/> : <>
            <CardLayout  book={dataLabel} title="عن الكتاب" /> 
-           <BookPurchase pro={puchase} />
           
            </>}
         </section>

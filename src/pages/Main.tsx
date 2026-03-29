@@ -5,11 +5,11 @@ import Marquee from "react-fast-marquee";
 import BookLayout from "../components/layouts/BooksLayout";
 import { query } from "../Services/query/books";
 import { Link } from "react-router-dom";
+import JsonView from "@uiw/react-json-view";
 
 
 export default function Main() {
-  const {data:dataBook,hasNextPage:hasNextPageBook, 
-    fetchNextPage:fetchNextPageBook,
+  const {data:dataBook,
     isFetchingNextPage:isFetchingNextPageBook,
     isPending:isPendingBook} = query.server.bookCover.getAll();
 
@@ -55,12 +55,10 @@ export default function Main() {
                <Marquee autoFill speed={40} pauseOnHover gradient gradientColor="rgba(248, 251, 253,0.1)">
                 {marqueeData?.pages.map(n=>(
                   n.data.map(r=>(
-                    <DisplayBooks key={r.uuid} {...r} />
+                    <DisplayBooks key={r.book_uuid} {...r} />
                   ))
                 ))}
               </Marquee>
-
-
             </div>
 
             <div dir="ltr" className="mt-10">
@@ -68,7 +66,7 @@ export default function Main() {
                 {
                   marqueeData?.pages.map(n=>(
                  n.data.map(r=>
-                   <DisplayBooks key={r.uuid} {...r} />
+                   <DisplayBooks key={r.book_uuid} {...r} />
                  )
                 ))
                 }
@@ -96,13 +94,17 @@ export default function Main() {
             (
             <BookLayout height={200} cols={5} scroll="horizontal">
               {
-                  dataBook?.pages.map(n=>(
-                 n.data.map(r=>
-                   <DisplayBooks key={r.uuid} {...r} />
+                  dataBook?.pages.map(n=>( n.data.map(r=>
+                 <>
+                    <DisplayBooks key={r.book_uuid} {...r} />
+                 </>
                  )
                 ))
                 }
             </BookLayout>)}
+
+            
+
         </div>
        <div className="flex justify-center items-center">
         <div>{isFetchingNextPageBook ? "جارِ تحميل الكتب" : ""}</div>

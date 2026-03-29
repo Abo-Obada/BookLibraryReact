@@ -56,6 +56,7 @@ export const query = {
                 return useQuery<BookContentResponse>({
                     queryKey: ['book-content',uuid],
                     staleTime: 1000 * 60 * 5,
+                    gcTime: 0,
                     queryFn: () => api.bookContent.get(uuid), 
                 });
             }

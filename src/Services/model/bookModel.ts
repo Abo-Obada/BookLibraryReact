@@ -1,7 +1,8 @@
 export type BookCover = {
-    book_uuid:string;
+   
     book_cover_uuid: string;
     book_name: string;
+    book_uuid:string
     book_image: string;
     book_rate: number;
     book_page_number: number;
@@ -16,6 +17,7 @@ export type BookCoverResponse = {
     current_page: number,
     last_page: number
     total:number
+    book_uuid: string
 }
 
 export type BookContentResponse = {

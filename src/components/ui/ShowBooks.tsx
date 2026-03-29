@@ -1,4 +1,4 @@
-import { Button, Rate } from "antd";
+import {  Rate } from "antd";
 import type { BookCover } from "../../Services/model/bookModel";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -27,7 +27,7 @@ function DisplayBooks(book: BookCover) {
 
       <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-300 rounded-3xl">
         <p className="text-white mb-3 me-5 ms-5 text-[1.6rem]">{book.book_description}</p>
-        <Link to={`show/${book.book_uuid}`}>
+        <Link to={`/books/show/${book.book_uuid}`} onClick={() => window.scroll(0,0)}>
         
           مراجعة
         
