@@ -26,9 +26,9 @@ export default function BookView() {
     const [count, setCount] = useState<number>(0);
     const invalidateComment = useQueryClient();
     //mutation + states 
-    const rate = useRef(0);
+    const rate = useRef(5);
     const comment = useRef("");
-    const { mutate, isSuccess, isError} = commentQuery.server.comment.post()
+    const { mutate} = commentQuery.server.comment.post()
       const [messageApi, contextHolder] = message.useMessage();
     const onSubmit = () =>{
      mutate({uuid:uuid, comment: comment.current, rate:rate.current},

@@ -1,6 +1,6 @@
-import { DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined, SmallDashOutlined } from "@ant-design/icons";
-import { Avatar, Dropdown, Empty, message, Rate, Spin } from "antd";
-import { useContext, useState, type ReactNode } from "react";
+import { DislikeFilled, DislikeOutlined, LikeFilled, LikeOutlined } from "@ant-design/icons";
+import { Avatar,  Empty, message, Rate, Spin } from "antd";
+import { useContext,  type ReactNode } from "react";
 import type { CommentResponse } from "../../Services/model/commentModel";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { query } from "../../Services/query/reaction";
@@ -31,11 +31,11 @@ const submit = (data: string, uuid: string) => {
   if (!data) return;
 
   mutate(
-    { uuid: uuid, reaction: data }, // ✅ use data directly, not state
+    { uuid: uuid, reaction: data },
     {
       onSuccess: () => {
         messageApi.success("تم بنجاح");
-        queryClient.invalidateQueries({ queryKey: ['comments'] }); // ✅ only on success
+        queryClient.invalidateQueries({ queryKey: ['comments'] }); 
       },
       onError: () => {
         messageApi.error("حدث خطب ما");
@@ -89,7 +89,7 @@ const submit = (data: string, uuid: string) => {
                             
                             </div>
                             <div className="me-2">
-                              <Rate size="small" value={Number(n.rate) || 0} />
+                              <Rate size="small"  value={Number(n.rate) || 0} />
                             </div>
                           </div>
                         </div>

@@ -23,7 +23,7 @@ export type CommentResponse = {
 }
 
 export type User = {
-    uuid: string
+    user_uuid: string
     username:string
 }
 
