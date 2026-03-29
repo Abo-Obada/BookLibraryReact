@@ -1,6 +1,5 @@
 import BookContentLayout from "../components/layouts/BookContentLayout";
-import BookPurchase, { type BtnColor } from "../components/layouts/BookPurchase";
-import { Alert, Button,message, Rate, Skeleton, Spin } from "antd";
+import { Button,message, Rate, Skeleton, Spin } from "antd";
 import { query as bookQuery} from "../Services/query/books";
 import { query as commentQuery } from "../Services/query/comment";
 import { useParams } from "react-router-dom";
@@ -12,9 +11,6 @@ import { useContext, useRef, useState } from "react";
 import { authContext } from "../contexts/AuthContext";
 import TextArea from "antd/es/input/TextArea";
 import { useQueryClient } from "@tanstack/react-query";
-
-
-const puchase = [{label:"amazon",color:"blue" as BtnColor,link:"#"}]
 
 export default function BookView() {
     const {uuid} = useParams();
