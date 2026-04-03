@@ -1,6 +1,6 @@
 import { useContext } from "react"
-import Logo from "../assets/Logo3.png"
-import { ThemeContext } from "../contexts/ThemeContext"
+import { ThemeContext } from "../../contexts/ThemeContext"
+import Logo from "../../assets/Logo3.png"
 export default function About(){
     const theme = useContext(ThemeContext);
 return(

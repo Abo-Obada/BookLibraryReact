@@ -1,10 +1,10 @@
 import { Carousel, Divider, Skeleton } from "antd";
-import DisplayBooks from "../components/ui/ShowBooks";
-import { carouselSwapper } from "../Services/api/books";
+import DisplayBooks from "../../components/ui/ShowBooks";
+import { carouselSwapper } from "../../Services/api/books";
 import Marquee from "react-fast-marquee";
-import BookLayout from "../components/layouts/BooksLayout";
-import { query as queryBooks } from "../Services/query/books";
-import { query as carouselBooks } from "../Services/query/carousel";
+import BookLayout from "../../components/layouts/BooksLayout";
+import { query as queryBooks } from "../../Services/query/books";
+import { query as carouselBooks } from "../../Services/query/carousel";
 
 import { Link } from "react-router-dom";
 

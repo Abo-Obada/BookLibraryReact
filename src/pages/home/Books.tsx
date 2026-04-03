@@ -1,9 +1,9 @@
 import Search from "antd/es/input/Search";
-import { query as bookQuery } from "../Services/query/books";
-import { query as categoryQuery } from "../Services/query/category";
-import {query as authorQuery} from "../Services/query/author";
-import DisplayBooks from "../components/ui/ShowBooks"
-import CategoryLayout from "../components/layouts/CategoryLayout";
+import { query as bookQuery } from "../../Services/query/books";
+import { query as categoryQuery } from "../../Services/query/category";
+import {query as authorQuery} from "../../Services/query/author";
+import DisplayBooks from "../../components/ui/ShowBooks"
+import CategoryLayout from "../../components/layouts/CategoryLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Spin from "antd/es/spin";
 import {  useState } from "react";

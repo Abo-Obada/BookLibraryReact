@@ -1,14 +1,14 @@
-import BookContentLayout from "../components/layouts/BookContentLayout";
+import BookContentLayout from "../../components/layouts/BookContentLayout";
 import { Button,message, Rate, Skeleton, Spin } from "antd";
-import { query as bookQuery} from "../Services/query/books";
-import { query as commentQuery } from "../Services/query/comment";
+import { query as bookQuery} from "../../Services/query/books";
+import { query as commentQuery } from "../../Services/query/comment";
 import { useParams } from "react-router-dom";
-import CardLayout from "../components/layouts/CardLayout";
-import CommentLayout from "../components/layouts/CommentLayout";
+import CardLayout from "../../components/layouts/CardLayout";
+import CommentLayout from "../../components/layouts/CommentLayout";
 import InfiniteScroll from "react-infinite-scroll-component";
-import DisplayBooks from "../components/ui/ShowBooks"
+import DisplayBooks from "../../components/ui/ShowBooks"
 import { useContext, useRef, useState } from "react";
-import { authContext } from "../contexts/AuthContext";
+import { authContext } from "../../contexts/AuthContext";
 import TextArea from "antd/es/input/TextArea";
 import { useQueryClient } from "@tanstack/react-query";
 
