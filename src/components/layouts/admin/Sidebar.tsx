@@ -7,7 +7,7 @@ export default function Sidebar(){
     const theme = useContext(ThemeContext);
     const auth = useContext(authContext);
     const links = [
-        {name:"الكتب",to:"/admin/books"},
+        {name:"الكتب",to:"/admin/book"},
         {name:"التصنيف",to:"/admin/category"},
         {name:"المؤلفون",to:"/admin/category"},
     ];
