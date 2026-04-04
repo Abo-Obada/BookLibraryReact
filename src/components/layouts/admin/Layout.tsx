@@ -14,10 +14,10 @@ export function LayoutAdmin() {
             algorithm: myTheme?.theme == "dark" ? darkAlgorithm : defaultAlgorithm,
             token: { fontFamily: "GeneralArabicFont" }
         }}>
-            <div className="grid grid-cols-[10rem_auto] grid-rows-[5rem_1fr_5rem] min-h-screen">
-                <div className="border border-e-amber-300 row-span-3"><Sidebar/></div>
-                <div className="border border-amber-100 row-span-1"><Header/></div>
-                <div className="border border-amber-800 "><Outlet/></div>
+            <div className="grid grid-cols-[15rem_auto] grid-rows-[auto_1fr_5rem] min-h-screen">
+                <div className="border border-amber-300 row-span-3 flex flex-col items-center"><Sidebar/></div>
+                <div className=" row-span-1"><Header/></div>
+                <div className=" "><Outlet/></div>
                 <div className="border border-b-blue-200"><Footer/></div>
             </div>
         </ConfigProvider>
