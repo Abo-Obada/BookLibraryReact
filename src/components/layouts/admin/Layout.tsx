@@ -3,7 +3,6 @@ import { ConfigProvider, theme } from "antd";
 import { useContext } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import Header from ".././admin/Header";
-import Footer from ".././admin/Footer";
 import Sidebar from "./Sidebar";
 
 export function LayoutAdmin() {
@@ -15,10 +14,10 @@ export function LayoutAdmin() {
             token: { fontFamily: "GeneralArabicFont" }
         }}>
             <div className="grid grid-cols-[15rem_auto] grid-rows-[auto_1fr_5rem] min-h-screen">
-                <div className="border border-amber-300 row-span-3 flex flex-col items-center"><Sidebar/></div>
+                <div className=" border-e border-e-current/20 row-span-3 flex flex-col items-center bg-sidebar-Color-dark"><Sidebar/></div>
                 <div className=" row-span-1"><Header/></div>
                 <div className=" "><Outlet/></div>
-                <div className="border border-b-blue-200"><Footer/></div>
+                <div className=""></div>
             </div>
         </ConfigProvider>
     );

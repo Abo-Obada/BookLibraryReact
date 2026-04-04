@@ -13,10 +13,10 @@ export default function Sidebar(){
     ];
     return (
         <>
-            <div className="mt-10">
+            <div className="mt-10 flex flex-row justify-between ">
                 <img src={Logo} className={`w-30 ${theme?.theme == "dark" ? 'w-30 invert' : ''}`} alt="" />
             </div>
-            <div></div>
+            
             <div className="flex self-start mt-10 ms-5">
             <ol>
                 {links.map(x=>{
