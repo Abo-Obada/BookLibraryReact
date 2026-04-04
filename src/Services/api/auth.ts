@@ -15,7 +15,7 @@ export const api =
         axios.defaults.withCredentials = true;
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
-        const res = await axios.post(url + "logout");
+        const res = await axios.post(url + "user/logout");
         return await res.data;
     },
 
@@ -24,7 +24,7 @@ export const api =
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
         try {
-            const res = await axios.get(url + "me");
+            const res = await axios.get(url + "user/me");
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {
@@ -36,5 +36,4 @@ export const api =
             throw error;
         }
     }
-
 }
