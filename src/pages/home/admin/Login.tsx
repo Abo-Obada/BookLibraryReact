@@ -4,7 +4,7 @@ import { ThemeContext } from "../../../contexts/ThemeContext";
 import { Alert, Button, Card, Checkbox, ConfigProvider, Form, Input, theme, Watermark } from "antd";
 import { query } from "../../../Services/admin/query/auth";
 import ProtectLoginContextProvider from "../../../contexts/ProtectLoginContext";
-import { Navigate, redirect, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 
 
