@@ -30,7 +30,7 @@ export const api =
       axios.defaults.withXSRFToken = true;
       await axios.get(csrf);
       try {
-        const res = await axios.post(url + `user/createcomment/${comment.uuid}`,comment);
+        const res = await axios.post(url + `createcomment/${comment.uuid}`,comment);
         return res.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {

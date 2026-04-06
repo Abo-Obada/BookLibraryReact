@@ -30,11 +30,14 @@ className="flex border-3 border-dotted   items-center flex-col justify-center te
 },          
 //Admin Section
 
-{path:"admin", element:<Login/>,children:[
+{path:"admin", element:<LayoutAdmin/>
+  
+  ,children:[
             {path:"",element:<Home/>},
             {path:"book",element:<BookTable/>}
-]
-}]);
+            ]
+},
+{path:"admin/login",element:<Login/>}]);
 //  <RouterProvider router={router}/>
 function App() {
   

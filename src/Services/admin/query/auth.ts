@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../api/auth";
 import type { LoginResponse } from "../model/authAdminModel";
+import { AxiosError } from "axios";
 
 
 export const query = {
@@ -15,7 +16,8 @@ export const query = {
     });
     },
     login: () => {
-      return useMutation({mutationFn: (login:LoginResponse) => api.login(login)});
+      return useMutation<unknown,AxiosError<{message:string | undefined}>,LoginResponse>(
+        {mutationFn: (login:LoginResponse) => api.login(login)});
     }
  }
 

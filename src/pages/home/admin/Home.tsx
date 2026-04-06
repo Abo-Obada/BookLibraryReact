@@ -4,8 +4,6 @@ import type { ApexOptions } from "apexcharts";
 import { useContext } from "react";
 import Chart from "react-apexcharts";
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { query } from "../../../Services/admin/query/auth";
-import JsonView from "@uiw/react-json-view";
 
 
 export function Home(){
@@ -102,7 +100,6 @@ export function Home(){
           }
         }]
 };
-const me = query.server.me();
     return (
     <div className="grid grid-cols-3 m-5">
       

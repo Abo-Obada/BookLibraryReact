@@ -3,31 +3,41 @@ import Logo from "../../../assets/Logo3.png"
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { Alert, Button, Card, Checkbox, ConfigProvider, Form, Input, theme, Watermark } from "antd";
 import { query } from "../../../Services/admin/query/auth";
+import ProtectLoginContextProvider from "../../../contexts/ProtectLoginContext";
+import { Navigate, redirect, useNavigate } from "react-router-dom";
 
 
 
 export default function Login() {
-
 
     const theme2 = useContext(ThemeContext);
     const { darkAlgorithm, defaultAlgorithm } = theme;
     const [email, setEmail] = useState<string>();
     const [password, setPassword] = useState<string>();
     const [remember, setRemember] = useState<boolean>(false);
-    const [message, setMessage] = useState<string>("");
-    const {mutate,isError,isSuccess} = query.server.login();
+    const [message, setMessage] = useState<string | undefined>(undefined);
+    const {mutate,isError,isSuccess,status} = query.server.login();
+    const navigate = useNavigate();
     const submit = () => {
        mutate({email: email, password: password, remember: remember},{
-        onSuccess: () => setMessage("تم التسجيل الدخول بنجاح"),
-        onError: () => setMessage("حدث خطب ما أثناء تسجيل الدخول")
+        onSuccess: () => {
+            setMessage("تم التسجيل الدخول بنجاح");
+           navigate('/admin/');
+            
+        },
+        onError: (e) => setMessage(e.response?.data.message)
        })
     }
     return (
+        <ProtectLoginContextProvider>
         <ConfigProvider theme={{
             algorithm: theme2?.theme == "dark" ? darkAlgorithm : defaultAlgorithm,
             token: { fontFamily: "GeneralArabicFont" }
         }}>
-           <Watermark content={"مكتبة حفّار"} font={{fontSize:50}}>
+            
+          
+             <Watermark content={"مكتبة حفّار"} font={{fontSize:50}}>
+             {status}
              <div className="flex  h-screen">
                 <div className=" w-screen flex justify-center items-center">
                     <div>
@@ -36,6 +46,7 @@ export default function Login() {
                                 name="basic"
                                 onFinish={() => submit()}
                             >
+                                
                                 <Form.Item
                                     label=":أسم المستخدم"
                                     name="username"
@@ -72,6 +83,7 @@ export default function Login() {
                            {isSuccess == true ?  <Alert type="success" title={message} /> : ""}
                            {isError == true ?  <Alert type="error" title={message}/> : ""}
                         </Card>
+                       
                     </div>
                 </div>
                 <div className="border-r border-current/20 flex-row gap-5  w-screen flex justify-center items-center">
@@ -79,8 +91,10 @@ export default function Login() {
                     <div><h1 className="text-7xl">التسجيل الدخول</h1></div>
                 </div>
             </div>
+            
            </Watermark>
+         
         </ConfigProvider>
-
+        </ProtectLoginContextProvider>
     );
 }
