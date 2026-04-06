@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8000/api/";
+const url = "http://localhost:8000/api/user/";
 const csrf = "http://localhost:8000/sanctum/csrf-cookie";
 
 export const api = {

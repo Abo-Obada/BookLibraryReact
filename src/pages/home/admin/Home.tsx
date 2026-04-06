@@ -4,6 +4,8 @@ import type { ApexOptions } from "apexcharts";
 import { useContext } from "react";
 import Chart from "react-apexcharts";
 import { ThemeContext } from "../../../contexts/ThemeContext";
+import { query } from "../../../Services/admin/query/auth";
+
 
 export function Home(){
     const theme = useContext(ThemeContext);
@@ -99,11 +101,10 @@ export function Home(){
           }
         }]
 };
-
-
+const me = query.server.me();
     return (
     <div className="grid grid-cols-3 m-5">
-        
+      
         <div className="border  m-2 border-current/20 rounded-2xl w-100 p-5 bg-amber-500 ">
             <Statistic  title={<h1 className="text-2xl">عدد الكتب اليوم</h1>} value={20} prefix={<BookOutlined className="ms-2"/>}/>
         </div>
@@ -115,8 +116,7 @@ export function Home(){
             <Statistic title={<h1 className="text-2xl"> الأرباح اليومية</h1>} value={20} prefix={<div className="ms-2">$</div>}/>
         </div>
 
-
-
+       
         <div className=" flex  items-center col-span-3 w-full mt-20 mb-2">
 
             <div className="border border-current/20 rounded-2xl p-2 me-auto">
@@ -126,5 +126,7 @@ export function Home(){
                 <Chart height={420} width={700} type={options2.chart?.type} series={options2.series} options={options2}/>
             </div>
         </div>
-    </div>)
+    <div>username: {me.data?.user?.role}</div>
+    </div>
+    )
 }

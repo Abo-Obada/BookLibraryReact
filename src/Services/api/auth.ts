@@ -1,6 +1,6 @@
 import axios from "axios";
 import type { Me, User } from "../model/authModel";
-const url = "http://localhost:8000/api/";
+const url = "http://localhost:8000/api/user/";
 const csrf = "http://localhost:8000/sanctum/csrf-cookie";
 export const api =
 {
@@ -15,7 +15,7 @@ export const api =
         axios.defaults.withCredentials = true;
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
-        const res = await axios.post(url + "user/logout");
+        const res = await axios.post(url + "logout");
         return await res.data;
     },
 
@@ -24,7 +24,7 @@ export const api =
         axios.defaults.withXSRFToken = true;
         await axios.get(csrf);
         try {
-            const res = await axios.get(url + "user/me");
+            const res = await axios.get(url + "me");
             return res.data;
         } catch (error) {
             if (axios.isAxiosError(error)) {

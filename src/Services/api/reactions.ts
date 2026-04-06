@@ -2,7 +2,7 @@ import axios from "axios";
 import type { ReactionPost } from "../model/reactionModel";
 
 
-const url = "http://localhost:8000/api/";
+const url = "http://localhost:8000/api/user/";
 const csrf = "http://localhost:8000/sanctum/csrf-cookie";
 export const api =
 {
@@ -14,7 +14,7 @@ export const api =
       axios.defaults.withXSRFToken = true;
       await axios.get(csrf);
       try {
-        const res = await axios.put(url + `user/createreaction/${reaction.uuid}`,reaction);
+        const res = await axios.put(url + `createreaction/${reaction.uuid}`,reaction);
         return res.data;
       } catch (error) {
         if (axios.isAxiosError(error)) {

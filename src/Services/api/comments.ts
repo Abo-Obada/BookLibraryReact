@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { CommentPost } from "../model/commentModel";
 
-const url = "http://localhost:8000/api/";
+const url = "http://localhost:8000/api/user/";
 const csrf = "http://localhost:8000/sanctum/csrf-cookie";
 export const api =
 {
