@@ -8,6 +8,7 @@ import BookView from "./pages/home/BookView";
 import { LayoutAdmin } from "./components/layouts/admin/Layout";
 import { Home } from "./pages/home/admin/Home";
 import { BookTable } from "./pages/home/admin/BookTable";
+import Login from "./pages/home/admin/Login";
 
 const router = createBrowserRouter([
   {
@@ -29,7 +30,7 @@ className="flex border-3 border-dotted   items-center flex-col justify-center te
 },          
 //Admin Section
 
-{path:"admin", element:<LayoutAdmin/>,children:[
+{path:"admin", element:<Login/>,children:[
             {path:"",element:<Home/>},
             {path:"book",element:<BookTable/>}
 ]

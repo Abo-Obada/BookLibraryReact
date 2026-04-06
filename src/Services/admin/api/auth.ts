@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { meResponse } from "../model/authAdminModel";
+import type { LoginResponse, meResponse } from "../model/authAdminModel";
 
 const url = "http://localhost:8000/api/admin/";
 const csrf = "http://localhost:8000/sanctum/csrf-cookie";
@@ -17,5 +17,13 @@ export const api =
             status: status, 
             role: response.data.role};
         return items;
+    },
+
+    login: async function login(res:LoginResponse) {
+        axios.defaults.withCredentials = true;
+        axios.defaults.withXSRFToken = true;
+         await axios.get(csrf);
+         const response = await axios.post(url + "login",res);
+         return response.data;
     }
 }

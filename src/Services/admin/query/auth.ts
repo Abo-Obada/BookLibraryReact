@@ -1,6 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { api } from "../api/auth";
-import type { meResponse } from "../model/authAdminModel";
+import type { LoginResponse } from "../model/authAdminModel";
+
 
 export const query = {
 
@@ -12,6 +13,9 @@ export const query = {
         staleTime: 1000 * 60 * 5,
         retry: false,
     });
+    },
+    login: () => {
+      return useMutation({mutationFn: (login:LoginResponse) => api.login(login)});
     }
  }
 

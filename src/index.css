@@ -85,3 +85,8 @@ body{
     filter: blur(0px);
   }
 }
+
+::selection {
+  background-color: chocolate;
+  color: #000000;
+}
