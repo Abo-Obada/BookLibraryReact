@@ -5,6 +5,7 @@ import { useContext } from "react";
 import Chart from "react-apexcharts";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import { query } from "../../../Services/admin/query/auth";
+import JsonView from "@uiw/react-json-view";
 
 
 export function Home(){
@@ -126,7 +127,6 @@ const me = query.server.me();
                 <Chart height={420} width={700} type={options2.chart?.type} series={options2.series} options={options2}/>
             </div>
         </div>
-    <div>username: {me.data?.user?.role}</div>
     </div>
     )
 }

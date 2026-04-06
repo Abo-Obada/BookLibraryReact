@@ -17,10 +17,10 @@ export type Me = {
     username: string,
     email: string,
     uuid: string,
-    role: string,
 }
 
 export type meResponse = {
     user: Me
+    role:string
     status:string | number
 }

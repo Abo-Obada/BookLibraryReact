@@ -6,9 +6,8 @@ export const AuthAdminContext = createContext<meResponse | undefined >(undefined
 
 export function AuthAdminContextProvider({ children }: { children: ReactNode }) {
     const me = query.server.me();
-    const status = me.data;
     return (
-        <AuthAdminContext.Provider value={status}>
+        <AuthAdminContext.Provider value={me.data}>
             {children}
         </AuthAdminContext.Provider>
     );

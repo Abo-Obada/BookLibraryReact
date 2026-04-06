@@ -4,12 +4,14 @@ import { useContext } from "react";
 import { ThemeContext } from "../../../contexts/ThemeContext";
 import Header from ".././admin/Header";
 import Sidebar from "./Sidebar";
+import { AuthAdminContextProvider } from "../../../contexts/AuthAdminContext";
 
 export function LayoutAdmin() {
     const myTheme = useContext(ThemeContext);
     const { darkAlgorithm, defaultAlgorithm } = theme;
     return (
-        <ConfigProvider theme={{
+       <AuthAdminContextProvider>
+         <ConfigProvider theme={{
             algorithm: myTheme?.theme == "dark" ? darkAlgorithm : defaultAlgorithm,
             token: { fontFamily: "GeneralArabicFont" }
         }}>
@@ -20,5 +22,6 @@ export function LayoutAdmin() {
                 <div className=""></div>
             </div>
         </ConfigProvider>
+       </AuthAdminContextProvider>
     );
 }

@@ -1,11 +1,11 @@
     import { useContext } from "react"
 import Logo from "../../../assets/Logo3.png"
 import { ThemeContext } from "../../../contexts/ThemeContext";
-import { authContext } from "../../../contexts/AuthContext";
 import { Link } from "react-router-dom";
+import { AuthAdminContext } from "../../../contexts/AuthAdminContext";
 export default function Sidebar(){
     const theme = useContext(ThemeContext);
-    const auth = useContext(authContext);
+    const auth = useContext(AuthAdminContext);
     const links = [
         {name:"الكتب",to:"/admin/book"},
         {name:"التصنيف",to:"/admin/category"},
@@ -41,7 +41,9 @@ export default function Sidebar(){
                 })}
             </ol>
             </div>
-            <div className="mt-auto mb-10">{auth?.data?.email}</div>
+            <div className="mt-auto mb-10">{auth?.user.email}
+                <div>{auth?.role}</div>
+            </div>
         </>
     )
 }

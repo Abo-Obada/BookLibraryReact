@@ -5,12 +5,14 @@ import type { meResponse } from "../model/authAdminModel";
 export const query = {
 
  server: {
-    me:  () => useQuery<meResponse | undefined>({
+    me:  () => {
+      return  useQuery({
         queryKey:["me-admin"],
-        queryFn: async () => await api.me(),
+        queryFn: api.me,
         staleTime: 1000 * 60 * 5,
         retry: false,
-    })
+    });
+    }
  }
 
 }

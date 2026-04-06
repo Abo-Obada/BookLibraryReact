@@ -4,12 +4,14 @@ import Header from "./Header";
 import { ConfigProvider, theme } from "antd";
 import { useContext } from "react";
 import { ThemeContext } from "../../contexts/ThemeContext";
+import { AuthContextProvider } from "../../contexts/AuthContext";
 
 export default function Layout() {
     const myTheme = useContext(ThemeContext);
     const { darkAlgorithm, defaultAlgorithm } = theme;
     return (
-        <ConfigProvider theme={{
+      <AuthContextProvider>
+          <ConfigProvider theme={{
             algorithm: myTheme?.theme == "dark" ? darkAlgorithm : defaultAlgorithm,
             token: { fontFamily: "GeneralArabicFont" }
         }}>
@@ -25,5 +27,6 @@ export default function Layout() {
                 </div>
             </div>
         </ConfigProvider>
+      </AuthContextProvider>
     );
 }
