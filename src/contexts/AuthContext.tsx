@@ -1,6 +1,6 @@
 import { createContext, type ReactNode } from "react";
 import { query } from "../Services/query/auth";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import type { Me } from "../Services/model/authModel";
 
 type props = {

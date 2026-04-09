@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import type { category } from "../../Services/model/categoriesModel";
 import type { SetURLSearchParams } from "react-router-dom";
 import type { Author } from "../../Services/model/authorModel";
@@ -13,7 +11,6 @@ interface CategoryLayoutProps {
   categoryAuthor?: Author[] | undefined
 }
 export default function CategoryLayout({ categoryName,category, onCategorySelect, searchPrm, currentCategory, categoryAuthor }:CategoryLayoutProps) {
-  const theme = useContext(ThemeContext);
   return (
  <>
     {

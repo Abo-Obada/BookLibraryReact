@@ -1,4 +1,4 @@
-import { useRef, type ReactNode } from "react"
+import {  type ReactNode } from "react"
 type ScrollDirection = "vertical" | "horizontal";
 
 const scrollClasses: Record<ScrollDirection, string> = {

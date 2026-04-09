@@ -93,7 +93,7 @@ export default function Main() {
         <div className="flex justify-center scale-90">
           {isPendingBook ? (<div className="grid gap-4 grid-cols-3 text-3xl justify-center items-center">
             {Array.from({ length: 12 }).map(n => (
-              <Skeleton.Node style={{ width: "280px", height: "200px" }} active={true} />
+              <Skeleton.Node style={{ width: "280px", height: `200px ${n}` }} active={true} />
             ))}
           </div>) :
             (

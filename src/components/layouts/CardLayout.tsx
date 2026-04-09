@@ -1,5 +1,3 @@
-import { useContext } from "react";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import type { BookContentResponse } from "../../Services/model/bookModel";
 import { Rate } from "antd";
 
@@ -10,7 +8,7 @@ type CardProps = {
   title:string
 }
 export default function CardLayout({book,title}:CardProps){
-    const theme = useContext(ThemeContext);
+  
     return(
         <div className="border border-current/20 rounded-2xl flex items-center flex-col">
           <div className="mt-2 mb-2">
