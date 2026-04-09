@@ -6,7 +6,7 @@ const csrf = "http://localhost:8000/sanctum/csrf-cookie";
 
 export const api =
 {
-    role: 
+    role:       
     {
         get: async function get() : Promise<Role> 
         {
