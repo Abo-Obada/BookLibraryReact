@@ -9,16 +9,17 @@ import { LayoutAdmin } from "./components/layouts/admin/Layout";
 import { Home } from "./pages/home/admin/Home";
 import { BookTable } from "./pages/home/admin/BookTable";
 import Login from "./pages/home/admin/Login";
+import Role from "./pages/home/admin/Role";
 
 const router = createBrowserRouter([
   {
   path:"/",
  element:<Layout/>,
  errorElement:<div
-className="flex border-3 border-dotted   items-center flex-col justify-center text-9xl mt-10" >
-  <div className="mt-2 mb-10">
-    <h1>404</h1>
-<div>هذا العنصر غير متوفر</div>
+className="flex border-3  border-dotted  h-screen w-screen items-center flex-col justify-center text-9xl " >
+  <div className="">
+    
+<div>هذا العنصر غير متوفر 404</div>
   </div>
  </div>,
  children: 
@@ -34,7 +35,8 @@ className="flex border-3 border-dotted   items-center flex-col justify-center te
   
   ,children:[
             {path:"",element:<Home/>},
-            {path:"book",element:<BookTable/>}
+            {path:"book",element:<BookTable/>},
+            {path:"roles",element:<Role/>}
             ]
 },
 {path:"admin/login",element:<Login/>}]);

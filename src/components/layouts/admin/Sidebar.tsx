@@ -10,6 +10,7 @@ export default function Sidebar(){
         {name:"الكتب",to:"/admin/book"},
         {name:"التصنيف",to:"/admin/category"},
         {name:"المؤلفون",to:"/admin/category"},
+        {name:"الأدوار",to:"/admin/roles"},
     ];
     return (
         <>
