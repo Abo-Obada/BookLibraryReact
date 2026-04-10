@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { LoginResponse, meResponse } from "../model/authAdminModel";
 
-const url = "http://localhost:8000/api/admin/";
-const csrf = "http://localhost:8000/sanctum/csrf-cookie";
+const url = import.meta.env.VITE_API_ADMIN_URL;
+const csrf = import.meta.env.VITE_CSRF_URL;
 
 
 export const api =
