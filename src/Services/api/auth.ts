@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { Me, User } from "../model/authModel";
-const url = "http://localhost:8000/api/user/";
-const csrf = "http://localhost:8000/sanctum/csrf-cookie";
+const url = import.meta.env.VITE_API_USER_URL;
+const csrf = import.meta.env.VITE_CSRF_URL;
 export const api =
 {
     login: async function login(user: User): Promise<User> {
