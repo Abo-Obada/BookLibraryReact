@@ -24,6 +24,3 @@ dist-ssr
 *.sw?
 vite.config.ts
 .env
-.env.local
-.env.development
-.env.production
