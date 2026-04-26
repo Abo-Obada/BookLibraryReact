@@ -7,8 +7,6 @@ import { query as carouselBooks } from "../../Services/query/carousel";
 
 import { Link } from "react-router-dom";
 
-
-
 export default function Main() {
   const {data:dataBook,
     isFetchingNextPage:isFetchingNextPageBook,
@@ -16,13 +14,11 @@ export default function Main() {
   const {data:marqueeData, isPending:isPendingMarquee } = queryBooks.server.bookCover.get();
   const {data:carouselData, isPending:isPendingCarousel} = carouselBooks.server.carousel.get();
   return (
-    
     <div className="grid grid-cols-1">
       <div className="">
 
         <div>
-                
-{isPendingCarousel ? <Skeleton/> : <Carousel arrows draggable={true} autoplay effect="fade">
+          {isPendingCarousel ? <Skeleton/> : <Carousel arrows draggable={true} autoplay effect="fade">
           {carouselData ? carouselData.map(n => (
             <div className="w-full h-[50rem] relative relative">
               <div className={`absolute inset-0 `} />
@@ -39,9 +35,6 @@ export default function Main() {
             </div>
           )) : null}
                </Carousel>}
-
-
-
         </div>
       </div>
       <div className="mt-10">
@@ -107,9 +100,6 @@ export default function Main() {
                 ))
                 }
             </BookLayout>)}
-
-            
-
         </div>
        <div className="flex justify-center items-center">
         <div>{isFetchingNextPageBook ? "جارِ تحميل الكتب" : ""}</div>

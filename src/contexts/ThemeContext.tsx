@@ -38,8 +38,6 @@ export function ThemeProvider({children}:{children:ReactNode}){
 
   },[theme]);
     
-    
-
   return(
     <ThemeContext.Provider value={{theme,setTheme}}> 
       {children}
