@@ -1,5 +1,7 @@
 import { Button, Space, Table } from "antd";
 import { query } from "../../../Services/admin/query/Role";
+import Item from "antd/es/list/Item";
+import { useState } from "react";
 type Rec = 
 {
     id:number, 
@@ -11,12 +13,12 @@ export default function Role()
 {
     const handleEdit = (items:Rec) =>
     {
-        
+     console.log(items)   
     }
 
     const handleDelete = (id:Rec) =>
     {
-       
+       console.log(items) 
     }
 
     const columns  = [
@@ -41,21 +43,31 @@ export default function Role()
     ];
 
     
-const {data,isPending, fetchNextPage} = query.server.get();
-const p = data?.pages.flatMap(x => x.data) ?? [];
-const total = data?.pages[0].total;
-const pageSize = data?.pages[0].per_page;
-const page = data?.pages[0].current_page;
+const [page, setPage] = useState(1);
+const { data, isPending } = query.server.get(page);
+
+
     return(
         <div className="m-5 border">
-            <div>
-                <Table columns={columns} loading={isPending} dataSource={p} pagination={{ 
-                    pageSize:pageSize, 
-                    total:total,
-                    onChange: () => fetchNextPage(), 
-                   current: page,
-                    }}/>
-            </div>
+          <div>
+             <Table
+    columns={columns}
+    loading={isPending}
+    dataSource={data?.data}
+    rowKey="id"
+    pagination={{
+        current: data?.current_page,
+        total: data?.total,
+        pageSize: data?.per_page,
+        onChange: (newPage) => setPage(newPage),
+    }}
+/>
+
+           </div>
+           
         </div>
     )
 }
+
+
+

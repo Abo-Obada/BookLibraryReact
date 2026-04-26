@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const query = {
 
-    server: {
+    server:     {
     author: {
         get: () => {
             return useQuery<Author[]>({
