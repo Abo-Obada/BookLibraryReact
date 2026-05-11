@@ -55,7 +55,7 @@ export default function BookView() {
         </section>
       </div>
       
-      <div className="box3">
+      <div className="box3" >
      <section>
       {isPendingLabel ? <Skeleton/> : <CommentLayout fetchNext={fetchNextPageComment} comment={dataComment?.pages} hasNext={NextPageComment} hasPrevious={hasPreviousPageComment}>
        {me?.isLoading ? <Skeleton/> : <>

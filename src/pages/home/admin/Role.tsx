@@ -18,7 +18,7 @@ export default function Role()
 
     const handleDelete = (id:Rec) =>
     {
-       console.log(items) 
+       console.log(id) 
     }
 
     const columns  = [

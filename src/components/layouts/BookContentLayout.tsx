@@ -4,8 +4,6 @@ export default function BookContentLayout({content}:{content:BookContent[] | und
     return(
       
         <>
-               
-                
                 <div  className="mt-10">
                     {content ? content.map(n=>(
                         <>
@@ -14,7 +12,6 @@ export default function BookContentLayout({content}:{content:BookContent[] | und
                         </>
                     )) : null}
                 </div>
-
 
 </>
           

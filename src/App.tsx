@@ -10,6 +10,8 @@ import { Home } from "./pages/home/admin/Home";
 import { BookTable } from "./pages/home/admin/BookTable";
 import Login from "./pages/home/admin/Login";
 import Role from "./pages/home/admin/Role";
+import RoleForm from "./pages/home/admin/RoleForm";
+
 
 const router = createBrowserRouter([
   {
@@ -36,7 +38,10 @@ className="flex border-3  border-dotted  h-screen w-screen items-center flex-col
   ,children:[
             {path:"",element:<Home/>},
             {path:"book",element:<BookTable/>},
-            {path:"roles",element:<Role/>}
+            {path:"roles",element:<Role/>},
+            {path:"rolesform",element: <RoleForm/>
+            
+            }
             ]
 },
 {path:"admin/login",element:<Login/>}]);
@@ -46,6 +51,6 @@ function App() {
   return (
    <RouterProvider router={router}/>
   )
-}
+} 
 
 export default App
